@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mentoria Delegado PCDF 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--sf:#f7f8fa;--sf2:#edeef2;--br:#e2e4ea;
+  --tx:#1a1b25;--tx2:#6b7080;--tx3:#9aa0b0;
+  --r:10px;--rs:6px;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+  --shm:0 4px 6px -1px rgba(0,0,0,.07);
+  --shl:0 10px 15px -3px rgba(0,0,0,.08);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:15px;line-height:1.6;min-height:100vh}
+h1,h2,h3,h4,h5,.btn,.tag,.ntab,.wtab,.vtbtn,.ctitle,.stitle{font-family:'Outfit',sans-serif}
+/* COUNTDOWN */
+.cbar{background:#1a1b25;padding:10px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.clbl{font-size:12px;font-weight:500;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em}
+.cunits{display:flex;gap:8px}
+.cunit{text-align:center;background:rgba(255,255,255,.1);padding:4px 10px;border-radius:6px;min-width:52px}
+.cunit .num{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1}
+.cunit .lbl{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em}
+.cdateright{margin-left:auto;font-size:13px;color:rgba(255,255,255,.4);font-family:'Outfit',sans-serif}
+.cdateright strong{color:#f59e0b}
+/* HEADER */
+.apphead{background:var(--bg);border-bottom:1px solid var(--br);padding:0 20px;display:flex;align-items:center;gap:16px;min-height:56px;position:sticky;top:0;z-index:100}
+.logo{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.logo span{color:#c62828}
+.nav{display:flex;gap:2px;background:var(--sf);padding:3px;border-radius:var(--rs);overflow-x:auto;flex:1}
+.ntab{padding:6px 14px;border:none;background:transparent;color:var(--tx2);font-size:14px;font-weight:500;cursor:pointer;border-radius:4px;white-space:nowrap;transition:all .15s}
+.ntab:hover{background:var(--sf2);color:var(--tx)}
+.ntab.active{background:var(--bg);color:var(--tx);font-weight:700;box-shadow:var(--sh)}
+.btnhead{padding:7px 14px;border:1px solid var(--br);background:var(--bg);border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--tx);font-family:'Outfit',sans-serif;white-space:nowrap}
+.btnhead:hover{background:var(--sf)}
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:20px}
+.tabp{display:none}.tabp.active{display:block}
+/* WEEK TABS */
+.wtabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px}
+.wtab{padding:6px 13px;border:1px solid var(--br);background:var(--bg);color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;border-radius:var(--rs);white-space:nowrap;transition:all .15s}
+.wtab:hover{border-color:var(--tx3)}
+.wtab.active{background:var(--tx);color:#fff;border-color:var(--tx)}
+.wtab.revwk{border-color:#f59e0b;color:#d97706}
+.wtab.revwk.active{background:#f59e0b;color:#fff;border-color:#f59e0b}
+/* VIEW TOGGLE */
+.vtoggle{display:flex;gap:3px;background:var(--sf);padding:3px;border-radius:var(--rs);width:fit-content}
+.vtbtn{padding:5px 12px;border:none;background:transparent;font-size:13px;font-weight:500;cursor:pointer;border-radius:4px;color:var(--tx2);transition:all .15s}
+.vtbtn.active{background:var(--bg);color:var(--tx);box-shadow:var(--sh)}
+/* SECTION HEADER */
+.sechead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.stitle{font-size:20px;font-weight:700}
+.ssub{font-size:14px;color:var(--tx2);margin-top:2px}
+/* DAYS VIEW */
+.dscroll{overflow-x:auto}
+.dgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;min-width:900px}
+.dcol{background:var(--sf);border-radius:var(--r);padding:12px;min-height:260px}
+.dhead{font-size:13px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.ddate{font-weight:400;font-size:12px;color:var(--tx3)}
+.dspecial{font-size:11px;background:#fff3e0;color:#e65100;padding:2px 6px;border-radius:20px;font-weight:700}
+.drev{font-size:11px;background:#ede7f6;color:#7b1fa2;padding:2px 6px;border-radius:20px;font-weight:700}
+.dcards{display:flex;flex-direction:column;gap:7px}
+.dcol.drag-over{outline:2px dashed #378add;outline-offset:2px}
+/* TOPIC CARD */
+.tcard{background:var(--bg);border-radius:var(--rs);padding:12px;box-shadow:var(--sh);border-left:3px solid transparent;cursor:grab;transition:box-shadow .15s,transform .15s;user-select:none}
+.tcard:hover{box-shadow:var(--shm)}
+.tcard.dragging{opacity:.35;transform:scale(.97)}
+.ctags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:20px;letter-spacing:.02em;font-family:'Outfit',sans-serif}
+.ctitle{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:6px;color:var(--tx)}
+.cdur{font-size:12px;color:var(--tx3);margin-bottom:7px}
+.cfoot{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.cselect{font-size:12px;font-family:'DM Sans',sans-serif;border:1px solid var(--br);border-radius:4px;padding:3px 6px;background:var(--bg);color:var(--tx);cursor:pointer;max-width:95px}
+.cactions{display:flex;gap:3px;margin-left:auto}
+.bti{width:24px;height:24px;border:none;background:transparent;cursor:pointer;border-radius:3px;color:var(--tx3);font-size:13px;transition:all .1s;display:flex;align-items:center;justify-content:center}
+.bti:hover{background:var(--sf);color:var(--tx)}
+.bti.del:hover{background:#fef2f2;color:#ef4444}
+/* KANBAN VIEW */
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;min-width:800px}
+.kcol{background:var(--sf);border-radius:var(--r);padding:12px;min-height:200px}
+.khead{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.kcount{background:var(--bg);padding:1px 6px;border-radius:20px;font-size:12px;font-weight:600}
+.kcards{display:flex;flex-direction:column;gap:7px;min-height:50px}
+.kcol.drag-over{outline:2px dashed #378add;outline-offset:2px}
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex}
+.modal{background:var(--bg);border-radius:var(--r);padding:22px;width:100%;max-width:480px;box-shadow:var(--shl)}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mtitle{font-size:18px;font-weight:700}
+.mbody{display:flex;flex-direction:column;gap:12px}
+.fg label{display:block;font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.finput,.fselect,.ftextarea{width:100%;padding:8px 11px;border:1px solid var(--br);border-radius:var(--rs);font-size:14px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);outline:none}
+.finput:focus,.fselect:focus,.ftextarea:focus{border-color:#1565c0}
+.ftextarea{resize:vertical;min-height:60px}
+.mfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+.btn{padding:8px 16px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:all .15s}
+.btnp{background:var(--tx);color:#fff}.btnp:hover{background:#2d2f42}
+.btns{background:var(--sf);color:var(--tx2)}.btns:hover{background:var(--sf2)}
+.btnd{background:#ef4444;color:#fff}.btnd:hover{background:#dc2626}
+.btnxs{padding:5px 10px;font-size:12px}
+/* CONFIRM */
+.cdialog{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:none;align-items:center;justify-content:center}
+.cdialog.open{display:flex}
+.cbox{background:var(--bg);border-radius:var(--r);padding:22px;max-width:320px;width:90%;text-align:center;box-shadow:var(--shl)}
+.cicon{font-size:28px;margin-bottom:10px}
+.ctitlec{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px}
+.ctext{font-size:14px;color:var(--tx2);margin-bottom:18px}
+.cacts{display:flex;gap:8px;justify-content:center}
+/* STATS */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px}
+.scard{background:var(--sf);border-radius:var(--r);padding:14px;text-align:center}
+.sval{font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:3px}
+.slbl{font-size:12px;color:var(--tx2);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.pbar{height:5px;background:var(--sf2);border-radius:20px;overflow:hidden;margin-top:6px}
+.pfill{height:100%;border-radius:20px;background:#10b981;transition:width .3s}
+.subrow{display:grid;grid-template-columns:160px 1fr 50px;align-items:center;gap:8px;margin-bottom:8px}
+.subname{font-size:13px;font-weight:600;font-family:'Outfit',sans-serif}
+.subpct{font-size:13px;font-weight:700;text-align:right}
+/* MATÉRIAS TAB */
+.sublist{display:flex;flex-direction:column;gap:12px}
+.subsec{background:var(--sf);border-radius:var(--r);overflow:hidden}
+.subhdr{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .15s}
+.subhdr:hover{background:var(--sf2)}
+.subhdr-arrow{margin-left:auto;font-size:13px;color:var(--tx3);transition:transform .2s}
+.subhdr-arrow.open{transform:rotate(180deg)}
+.subbody{padding:0 14px 12px;display:none}
+.subbody.open{display:block}
+.topiclist{display:flex;flex-direction:column;gap:3px;margin-top:8px}
+.titem{display:flex;align-items:flex-start;gap:6px;padding:6px 8px;border-radius:var(--rs);background:var(--bg);font-size:13px}
+.tnum{font-size:11px;font-weight:700;color:var(--tx3);min-width:20px;padding-top:2px}
+.iinc{font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:auto;white-space:nowrap}
+.inc-a{background:#ffebee;color:#c62828}
+.inc-m{background:#fffbeb;color:#f59e0b}
+.inc-b{background:#f1f2f6;color:#6b7280}
+/* TEMPO DE ESTUDOS */
+.tgrid{display:flex;flex-direction:column;gap:10px}
+.tcard2{background:var(--sf);border-radius:var(--r);padding:13px 15px}
+.thead2{display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.tinputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.tig label{font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.tval{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;padding:5px 9px;border-radius:var(--rs);text-align:center;min-width:64px;display:inline-block}
+.acc-r{background:#fef2f2;color:#ef4444}
+.acc-y{background:#fffbeb;color:#d97706}
+.acc-g{background:#ecfdf5;color:#059669}
+.acc-na{background:#f1f2f6;color:#9aa0b0}
+/* CICLOS */
+.ciclogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.ciclocard{background:var(--sf);border-radius:var(--r);overflow:hidden}
+.ciclohead{padding:12px 15px;display:flex;align-items:center;gap:8px}
+.cicloname{font-size:15px;font-weight:700;font-family:'Outfit',sans-serif}
+.ciclobody{padding:0 15px 13px}
+.cicloitem{display:flex;align-items:flex-start;gap:7px;padding:6px 0;border-bottom:1px solid var(--br);font-size:13px}
+.cicloitem:last-child{border-bottom:none}
+.ciclot{font-weight:700;font-size:12px;color:var(--tx2);min-width:36px;padding-top:2px;font-family:'Outfit',sans-serif}
+/* CONTROLE DE MATÉRIAS */
+.ctrl-global{background:linear-gradient(135deg,#1a1b25 0%,#2d2f42 100%);border-radius:var(--r);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.ctrl-global-num{font-family:'Outfit',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1}
+.ctrl-global-lbl{font-size:13px;color:rgba(255,255,255,.6);font-weight:500;margin-top:2px}
+.ctrl-global-bar{flex:1;min-width:160px}
+.ctrl-global-bar-track{height:8px;background:rgba(255,255,255,.15);border-radius:20px;overflow:hidden}
+.ctrl-global-bar-fill{height:100%;border-radius:20px;background:#10b981;transition:width .4s}
+.ctrl-global-pct{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:#10b981;margin-top:4px}
+.ctrl-subblock{background:var(--bg);border-radius:var(--r);border:1px solid var(--br);margin-bottom:10px;overflow:hidden}
+.ctrl-subhdr{display:flex;align-items:center;gap:10px;padding:13px 15px;cursor:pointer;transition:background .15s;user-select:none}
+.ctrl-subhdr:hover{background:var(--sf)}
+.ctrl-subhdr-arrow{font-size:12px;color:var(--tx3);transition:transform .2s;margin-left:4px;flex-shrink:0}
+.ctrl-subname{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700}
+.ctrl-subprog{display:flex;align-items:center;gap:8px;margin-left:auto}
+.ctrl-subpbar{width:80px;height:5px;background:var(--sf2);border-radius:20px;overflow:hidden;flex-shrink:0}
+.ctrl-subpfill{height:100%;border-radius:20px;transition:width .3s}
+.ctrl-subnum{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--tx2);min-width:44px;text-align:right;white-space:nowrap}
+.ctrl-subbody{display:none;border-top:1px solid var(--br)}
+.ctrl-subbody.open{display:block}
+.ctrl-subactions{display:flex;gap:6px;padding:8px 14px;background:var(--sf);border-bottom:1px solid var(--br)}
+.ctrl-row{display:flex;align-items:flex-start;gap:10px;padding:10px 15px;border-bottom:1px solid var(--br);transition:background .12s;cursor:pointer}
+.ctrl-row:last-child{border-bottom:none}
+.ctrl-row:hover{background:#f7f8fa}
+.ctrl-row.ctrl-done{background:#f0fdf4}
+.ctrl-chk{width:24px;height:24px;border-radius:50%;border:2px solid var(--br);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .2s;flex-shrink:0;margin-top:1px}
+.ctrl-chk.on{background:#10b981;border-color:#10b981;color:#fff}
+.ctrl-rownum{font-size:12px;font-weight:700;color:var(--tx3);min-width:20px;margin-top:2px;flex-shrink:0}
+.ctrl-rowtxt{flex:1;font-size:13px;line-height:1.4;color:var(--tx)}
+.ctrl-rowtxt.done-line{color:var(--tx3);text-decoration:line-through}
+.ctrl-rowinc{flex-shrink:0;margin-top:2px}
+/* SAVE */
+.saveind{position:fixed;bottom:18px;right:18px;background:var(--tx);color:#fff;padding:8px 14px;border-radius:var(--rs);font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s;z-index:500;pointer-events:none}
+.saveind.show{opacity:1;transform:translateY(0)}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--br);border-radius:20px}
+::-webkit-scrollbar-thumb:hover{background:var(--tx3)}
+/* NOTA */
+.nota{background:#fff3e0;border:1px solid #ffcc80;border-radius:var(--rs);padding:9px 13px;font-size:13px;color:#e65100;margin-bottom:14px}
+.nota strong{font-weight:600}
+.empty{color:var(--tx3);font-size:13px;font-style:italic;text-align:center;padding:16px 0}
+.flex{display:flex}.fac{align-items:center}.fjb{justify-content:space-between}.gap8{gap:8px}.gap12{gap:12px}
+.mb8{margin-bottom:8px}.mb16{margin-bottom:16px}.w100{width:100%}
+</style>
+</head>
+<body>
+
+<!-- COUNTDOWN -->
+<div class="cbar">
+  <span class="clbl">Prova Objetiva</span>
+  <div class="cunits">
+    <div class="cunit"><div class="num" id="cd-d">55</div><div class="lbl">dias</div></div>
+    <div class="cunit"><div class="num" id="cd-h">00</div><div class="lbl">horas</div></div>
+    <div class="cunit"><div class="num" id="cd-m">00</div><div class="lbl">min</div></div>
+    <div class="cunit"><div class="num" id="cd-s">00</div><div class="lbl">seg</div></div>
+  </div>
+  <div class="cdateright">Prova: <strong>05/07/2026</strong></div>
+</div>
+
+<!-- HEADER -->
+<div class="apphead">
+  <div class="logo">📚 <span>PCDF</span> Delegado 2026</div>
+  <div class="nav">
+    <button class="ntab active" onclick="showTab('plan')">Planejamento</button>
+    <button class="ntab" onclick="showTab('ciclos')">Ciclos</button>
+    <button class="ntab" onclick="showTab('materias')">Matérias</button>
+    <button class="ntab" onclick="showTab('controle')">Controle</button>
+    <button class="ntab" onclick="showTab('stats')">Estatísticas</button>
+    <button class="ntab" onclick="showTab('tempo')">Tempo de Estudos</button>
+  </div>
+  <button class="btnhead" onclick="openAddModal()">+ Adicionar Tópico</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="tabp active" id="tab-plan">
+  <div class="nota"><strong>Obs:</strong> Tópicos em verde no seu material já foram estudados — marque como <em>Finalizado</em> para atualizar as estatísticas. Dir. Civil e Dir. Tributário <strong>nunca estão no mesmo dia</strong>.</div>
+  <div class="sechead">
+    <div><div class="stitle">Planejamento Semanal</div><div class="ssub">12/05/2026 → 04/07/2026 — última semana exclusiva para revisão</div></div>
+    <div class="vtoggle">
+      <button class="vtbtn active" id="vbtn-days" onclick="setView('days')">Dias</button>
+      <button class="vtbtn" id="vbtn-kanban" onclick="setView('kanban')">Kanban</button>
+    </div>
+  </div>
+  <div class="wtabs" id="weekTabs"></div>
+  <div id="planContent"></div>
+</div>
+
+<div class="tabp" id="tab-ciclos">
+  <div class="sechead"><div><div class="stitle">Ciclos de Estudo — 4h/dia</div><div class="ssub">Distribuição semanal de disciplinas com tempos sugeridos</div></div></div>
+  <div class="nota"><strong>Regra:</strong> Dir. Civil (Ter/Sex) e Dir. Tributário (Qua/Sáb) nunca juntos. Seg = Peças + 2 mat. Dom = Revisão + Jurisprudência.</div>
+  <div class="ciclogrid" id="cicloGrid"></div>
+</div>
+
+<div class="tabp" id="tab-materias">
+  <div class="sechead"><div><div class="stitle">Conteúdo Programático — Edital PCDF 2026</div><div class="ssub">Todos os tópicos por disciplina, conforme Seção 22 do Edital</div></div></div>
+  <div class="sublist" id="subjectList"></div>
+</div>
+
+<div class="tabp" id="tab-controle">
+  <div class="sechead">
+    <div><div class="stitle">Controle de Matérias</div><div class="ssub">Visão vertical de todo o conteúdo — marque cada tópico como estudado</div></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btns btnxs" onclick="expandAllCtrl()">Expandir tudo</button>
+      <button class="btn btns btnxs" onclick="collapseAllCtrl()">Recolher tudo</button>
+      <button class="btn btns btnxs" onclick="resetCtrl()" style="color:#ef4444">Limpar tudo</button>
+    </div>
+  </div>
+  <div id="ctrlGlobal"></div>
+  <div id="ctrlContent"></div>
+</div>
+
+<div class="tabp" id="tab-stats">
+  <div class="sechead"><div><div class="stitle">Estatísticas de Progresso</div><div class="ssub">Atualizado ao marcar tópicos como Finalizado</div></div></div>
+  <div class="sgrid" id="statCards"></div>
+  <div class="stitle mb8" style="font-size:15px">Progresso por Disciplina — Planejamento</div>
+  <div id="subjectProgress"></div>
+</div>
+
+<div class="tabp" id="tab-tempo">
+  <div class="sechead"><div><div class="stitle">Registro de Tempo e Questões</div><div class="ssub">Registre horas estudadas e desempenho diário por disciplina</div></div></div>
+  <div style="margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <label style="font-size:13px;font-weight:600;color:var(--tx2)">Data:</label>
+    <input type="date" class="finput" id="tempoDate" style="width:160px" oninput="renderTempo()">
+    <button class="btn btnp" onclick="addTempoEntry()">+ Registrar</button>
+    <button class="btn btns" onclick="clearTempo()">Limpar dia</button>
+  </div>
+  <div class="tgrid" id="tempoGrid"></div>
+  <div id="tempoHistory" style="margin-top:20px"></div>
+</div>
+
+</div><!-- /main -->
+
+<!-- MODALS -->
+<div class="overlay" id="addModal">
+<div class="modal">
+  <div class="mhead"><div class="mtitle" id="modalTitle">Adicionar Tópico</div><button class="bti del" onclick="closeModal('addModal')">✕</button></div>
+  <div class="mbody">
+    <div class="fg"><label>Disciplina</label><select class="fselect" id="mSub"></select></div>
+    <div class="fg"><label>Título do Tópico</label><input class="finput" id="mTitle" placeholder="Ex: Teoria geral do crime..."></div>
+    <div class="fg" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><label>Semana</label><select class="fselect" id="mWeek"></select></div>
+      <div><label>Dia</label><select class="fselect" id="mDay">
+        <option value="mon">Segunda</option><option value="tue">Terça</option>
+        <option value="wed">Quarta</option><option value="thu">Quinta</option>
+        <option value="fri">Sexta</option><option value="sat">Sábado</option><option value="sun">Domingo</option>
+      </select></div>
+    </div>
+    <div class="fg" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><label>Duração</label><select class="fselect" id="mDur">
+        <option value="60">1h</option><option value="90" selected>1h30</option><option value="120">2h</option>
+      </select></div>
+      <div><label>Incidência CEBRASPE</label><select class="fselect" id="mInc">
+        <option value="a">Alta</option><option value="m">Média</option><option value="b">Baixa</option>
+      </select></div>
+    </div>
+    <div class="fg"><label>Notas (opcional)</label><textarea class="ftextarea" id="mNote" placeholder="Observações, links, dicas..."></textarea></div>
+  </div>
+  <div class="mfoot">
+    <button class="btn btns" onclick="closeModal('addModal')">Cancelar</button>
+    <button class="btn btnp" id="mSaveBtn" onclick="saveModal()">Salvar</button>
+  </div>
+</div></div>
+
+<div class="cdialog" id="confirmDel">
+<div class="cbox">
+  <div class="cicon">🗑️</div>
+  <div class="ctitlec">Excluir tópico?</div>
+  <div class="ctext">Esta ação não pode ser desfeita. O tópico será removido permanentemente.</div>
+  <div class="cacts">
+    <button class="btn btns" onclick="closeModal('confirmDel')">Cancelar</button>
+    <button class="btn btnd" onclick="confirmDelete()">Excluir</button>
+  </div>
+</div></div>
+
+<div class="cdialog" id="confirmReset">
+<div class="cbox">
+  <div class="cicon">⚠️</div>
+  <div class="ctitlec">Limpar todo o controle?</div>
+  <div class="ctext">Todos os tópicos marcados como estudados serão desmarcados. Esta ação não pode ser desfeita.</div>
+  <div class="cacts">
+    <button class="btn btns" onclick="closeModal('confirmReset')">Cancelar</button>
+    <button class="btn btnd" onclick="doResetCtrl()">Limpar tudo</button>
+  </div>
+</div></div>
+
+<div class="saveind" id="saveInd">💾 Salvo automaticamente</div>
+
+<script>
+// ===== CONSTANTS =====
+const EXAM_DATE = new Date('2026-07-05T08:00:00');
+const DAYS_PT = {mon:'Segunda',tue:'Terça',wed:'Quarta',thu:'Quinta',fri:'Sexta',sat:'Sábado',sun:'Domingo'};
+const DAYS_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
+
+// ===== SUBJECT COLORS (updated per user request) =====
+const SUBS = {
+  dp:   {n:'Dir. Penal',          c:'#c62828',l:'#ffebee',i:'ALTA'},
+  dpp:  {n:'Dir. Proc. Penal',    c:'#d4a017',l:'#fef9c3',i:'ALTA'},   // amarelo vivo
+  dc:   {n:'Dir. Constitucional', c:'#1b5e20',l:'#e8f5e9',i:'ALTA'},   // verde escuro
+  da:   {n:'Dir. Administrativo', c:'#7b1fa2',l:'#f3e5f5',i:'ALTA'},   // roxo
+  dciv: {n:'Dir. Civil',          c:'#0d47a1',l:'#e8eef8',i:'MÉDIA'},  // azul escuro
+  demp: {n:'Dir. Empresarial',    c:'#039be5',l:'#e1f6ff',i:'BAIXA'},  // azul claro
+  dt:   {n:'Dir. Tributário',     c:'#e65100',l:'#fff3e0',i:'MÉDIA'},
+  ml:   {n:'Medicina Legal',      c:'#c2185b',l:'#fde8f0',i:'MÉDIA'},  // rosa fúcsia
+  damb: {n:'Dir. Ambiental',      c:'#558b2f',l:'#f1f8e9',i:'BAIXA'},
+  gdf:  {n:'GDF / Legislação DF', c:'#0277bd',l:'#e1f5fe',i:'MÉDIA'},
+  pecas:{n:'Peças Processuais',   c:'#880e4f',l:'#fce4ec',i:'ALTA'},
+};
+
+const WEEKS = [
+  {id:0,label:'Sem. 0',sub:'12–17 mai',partial:true},
+  {id:1,label:'Sem. 1',sub:'18–24 mai'},
+  {id:2,label:'Sem. 2',sub:'25–31 mai'},
+  {id:3,label:'Sem. 3',sub:'01–07 jun'},
+  {id:4,label:'Sem. 4',sub:'08–14 jun'},
+  {id:5,label:'Sem. 5',sub:'15–21 jun'},
+  {id:6,label:'Sem. 6',sub:'22–28 jun'},
+  {id:7,label:'REVISÃO',sub:'29 jun–04 jul',rev:true},
+];
+const W0_DATES={tue:'13/05',wed:'14/05',thu:'15/05',fri:'16/05',sat:'17/05',sun:'17/05'};
+const WEEK_DATES=[null,
+  {mon:'18/05',tue:'19/05',wed:'20/05',thu:'21/05',fri:'22/05',sat:'23/05',sun:'24/05'},
+  {mon:'25/05',tue:'26/05',wed:'27/05',thu:'28/05',fri:'29/05',sat:'30/05',sun:'31/05'},
+  {mon:'01/06',tue:'02/06',wed:'03/06',thu:'04/06',fri:'05/06',sat:'06/06',sun:'07/06'},
+  {mon:'08/06',tue:'09/06',wed:'10/06',thu:'11/06',fri:'12/06',sat:'13/06',sun:'14/06'},
+  {mon:'15/06',tue:'16/06',wed:'17/06',thu:'18/06',fri:'19/06',sat:'20/06',sun:'21/06'},
+  {mon:'22/06',tue:'23/06',wed:'24/06',thu:'25/06',fri:'26/06',sat:'27/06',sun:'28/06'},
+  {mon:'29/06',tue:'30/06',wed:'01/07',thu:'02/07',fri:'03/07',sat:'04/07',sun:'05/07'},
+];
+
+const INIT_TOPICS = [
+[0,'tue','da','Conceito, fontes e regime jurídico-administrativo; Princípios da Adm. Pública',90,'a'],
+[0,'tue','ml','Perícia médico-legal: importância, corpo de delito, cadeia de custódia, assistentes técnicos',90,'m'],
+[0,'tue','dciv','Lei de Introdução às Normas do Direito Brasileiro (LINDB)',60,'m'],
+[0,'wed','dpp','Princípios gerais do DPP; fontes; lei processual penal; sistemas de processo penal',90,'a'],
+[0,'wed','dt','O Estado e o poder de tributar; Dir. Tributário: conceito e princípios; Tributo: espécies',90,'m'],
+[0,'wed','damb','Princípios do Dir. Ambiental; Meio ambiente na CF (Art. 225); Repartição de competências',60,'b'],
+[0,'thu','dc','Noções gerais de DC; Classificações das constituições; Ciclos constitucionais',90,'a'],
+[0,'thu','dp','Princípios e garantias penais fundamentais; Dir. Penal e política criminal; Escolas penais',90,'a'],
+[0,'thu','gdf','Conhecimentos do DF: realidade étnica, social, histórica, geográfica e cultural; Aspectos político-administrativos',90,'m'],
+[0,'fri','da','Administração pública: organização, descentralização, desconcentração, órgãos públicos',90,'a'],
+[0,'fri','dciv','Pessoas: pessoa natural, personalidade, capacidade; Direitos da personalidade; Pessoa jurídica; Domicílio',90,'m'],
+[0,'fri','demp','Dir. Empresarial: origem, evolução, autonomia, fontes; Empresário: teoria da empresa',60,'b'],
+[0,'sat','dpp','Inquérito policial: histórico, natureza, conceito, finalidade, características, fundamento e titularidade',90,'a'],
+[0,'sat','ml','Documentos médico-legais; Laudos periciais: estrutura, quesitos oficiais, modelos; Crime de falsa perícia',60,'m'],
+[0,'sat','dt','CTN e normas gerais de Dir. Tributário; Obrigação tributária: conceito, espécies, fato gerador',90,'m'],
+[0,'sun','dc','Revisão Sem.0: DA + DC + DP; Jurisprudência STF/STJ — princípios adm. e const.',120,'a'],
+[1,'mon','pecas','TCO — Termo Circunstanciado de Ocorrência: estrutura e requisitos legais',90,'a'],
+[1,'mon','dp','Lei penal: fontes, interpretação, vigência e aplicação; Analogia; Concurso aparente de normas',60,'a'],
+[1,'mon','dc','Poder constituinte: originário, derivado; Emendas à Constituição; Limitações ao poder de revisão',90,'a'],
+[1,'tue','da','Administração indireta: autarquias, fundações, empresas públicas, SEM; Entidades paralelas',90,'a'],
+[1,'tue','ml','Traumatologia forense: lesão corporal — conceito, classificação, art. 129 CP, quesitos, nexo causal',90,'m'],
+[1,'tue','dciv','Bens: classificação, bens em si mesmos e reciprocamente; Fato jurídico: negócio jurídico',60,'m'],
+[1,'wed','dpp','IP: instauração, notitia criminis, delatio criminis, procedimentos investigativos, indiciamento, prazos',90,'a'],
+[1,'wed','dt','Obrigação tributária: sujeitos ativo e passivo, solidariedade, capacidade e domicílio tributário',90,'m'],
+[1,'wed','damb','Poder de polícia ambiental; Licenciamento ambiental; EIA; Compensação ambiental; Biossegurança',60,'b'],
+[1,'thu','dc','Controle de constitucionalidade: conceito, sistemas; ADI, ADC, ADPF; inconstitucionalidade por omissão',90,'a'],
+[1,'thu','dp','Lei penal no tempo: irretroatividade, novatio legis in mellius, abolitio criminis; lei temporária e excepcional',90,'a'],
+[1,'thu','gdf','RIDE: LC federal 94/1998 e Decreto 7.469/2011; Aspectos socioeconômicos do DF e Entorno',60,'m'],
+[1,'fri','da','Atos administrativos: conceitos, requisitos, elementos, pressupostos e classificação',90,'a'],
+[1,'fri','dciv','Negócio jurídico: defeitos e invalidade; Atos jurídicos lícitos; Atos ilícitos; Prescrição e decadência',90,'m'],
+[1,'fri','demp','Espécies de empresas: responsabilidade dos sócios, distribuição de lucros, sócio oculto',60,'b'],
+[1,'sat','dpp','Ação penal: conceito, características, espécies e condições',90,'a'],
+[1,'sat','ml','Traumatologia: energias mecânicas — contundente, TCE, armas brancas, perfurocontundentes',60,'m'],
+[1,'sat','dt','Crédito tributário: conceito, natureza, lançamento: modalidades e revisão',90,'m'],
+[1,'sun','dpp','Revisão Sem.1: IP + Ação Penal; Jurisprudência STJ/STF — inquérito policial e indiciamento',120,'a'],
+[2,'mon','pecas','Auto de Prisão em Flagrante: lavratura, comunicação ao juiz, relaxamento e liberdade',90,'a'],
+[2,'mon','dp','Lei penal no espaço: territorialidade, extraterritorialidade, imunidades; Condições de punibilidade',60,'a'],
+[2,'mon','dc','Interpretação constitucional; Neoconstitucionalismo; Aplicabilidade das normas constitucionais',90,'a'],
+[2,'tue','da','Atos administrativos em espécie; Silêncio administrativo; Cassação, Revogação e Anulação',90,'a'],
+[2,'tue','ml','Traumatologia: energias mecânicas — projéteis de alta energia; Energias físicas: baropatias, térmica, elétrica',90,'m'],
+[2,'tue','dciv','Dir. das coisas: posse — conceito, classificação, aquisição, efeitos e perda',60,'m'],
+[2,'wed','dpp','Competência: critérios de determinação e modificação; Incompetência; Conexão e continência',90,'a'],
+[2,'wed','dt','Crédito tributário: suspensão, extinção e exclusão; Prescrição e decadência tributária; Repetição do indébito',90,'m'],
+[2,'wed','damb','Infrações ambientais; Responsabilidade ambiental: dano e reparação; SISNAMA; SNUC',60,'b'],
+[2,'thu','dc','Direitos e deveres individuais e coletivos (art. 5° CF); Direito à vida, liberdade, igualdade, segurança e propriedade',90,'a'],
+[2,'thu','dp','Teoria geral do crime: conceito, objeto, sujeitos, conduta, tipicidade, ilicitude e culpabilidade; Bem jurídico; Fato típico',90,'a'],
+[2,'thu','gdf','Plano Distrital de Política para Mulheres (PDPM): conteúdo, diretrizes e ações estratégicas',60,'m'],
+[2,'fri','da','Processo administrativo (Lei 9.784/99); Validade, eficácia e autoexecutoriedade do ato adm.',90,'a'],
+[2,'fri','dciv','Dir. reais; Propriedade: conceito, aquisição imóvel e móvel, perda da propriedade',90,'m'],
+[2,'fri','demp','Teoria geral do dir. societário: conceito, personalização; Sociedades não personificadas e personificadas',60,'b'],
+[2,'sat','dpp','Questões e processos incidentes; Provas: conceito, classificação, sistemas, ônus, valoração, provas ilícitas',90,'a'],
+[2,'sat','ml','Asfixiologia forense: conceito, classificação; sufocação; constrição cervical; modificações no meio-ambiente',60,'m'],
+[2,'sat','dt','Responsabilidade tributária: por dívida própria, solidariedade, sucessão, pessoal, de terceiros',90,'m'],
+[2,'sun','dc','Revisão Sem.2: Dir. Const. + Dir. Civil; Jurisprudência STF — direitos fundamentais (art. 5°)',120,'a'],
+[3,'mon','pecas','Habeas Corpus: petição inicial, pedido liminar, fundamentos; mandado de segurança em matéria penal',90,'a'],
+[3,'mon','dp','Teoria da ação; Conduta, resultado, relação de causalidade e teorias; Imputação objetiva',60,'a'],
+[3,'mon','dc','Direitos sociais (arts. 6°–11 CF); Garantias constitucionais individuais e coletivas; Remédios constitucionais',90,'a'],
+[3,'tue','da','Teoria das nulidades; Vícios do ato adm.; Atos nulos e anuláveis; Teoria dos motivos determinantes; Convalidação',90,'a'],
+[3,'tue','ml','Tanatologia forense: conceito de morte, destinação do cadáver, inumação, exumação, cremação; causas jurídicas da morte',90,'m'],
+[3,'tue','dciv','Responsabilidade civil: pressupostos, obrigação de indenizar, espécies, indenização; Decreto 9.830/19',60,'m'],
+[3,'wed','dpp','Provas — meios: perícias, interrogatório, confissão, testemunhas, reconhecimento, acareação, documentos, indícios',90,'a'],
+[3,'wed','dt','Sistema Tributário Nacional: princípios gerais; Limitações ao poder de tributar; imunidades tributárias',90,'m'],
+[3,'wed','damb','Crimes ambientais (Lei 9.605/1998): parte geral; crimes contra a fauna e flora; poluição; sanções penais',60,'b'],
+[3,'thu','dc','Tratados internacionais de DH; Nacionalidade, cidadania, direitos políticos, partidos políticos',90,'a'],
+[3,'thu','dp','Tipicidade: formal e material; Crimes dolosos e culposos; Consumação e tentativa; Desistência; Arrependimento; Crime impossível',90,'a'],
+[3,'thu','gdf','Noções de primeiros socorros: engasgo, sangramentos, fraturas, queimaduras, desmaio, convulsões e intoxicações',90,'m'],
+[3,'fri','da','Poderes da Adm. Pública: hierárquico e manifestações; Poder disciplinar; Uso e abuso do poder',90,'a'],
+[3,'fri','dciv','Revisão geral Dir. Civil: LINDB, negócio jurídico, prescrição/decadência, responsabilidade civil',90,'m'],
+[3,'fri','demp','Classificação das sociedades: simples, em nome coletivo, comandita simples, por ações, cooperativa, LTDA, S/A',60,'b'],
+[3,'sat','dpp','Busca e apreensão: pessoal, domiciliar, requisitos, restrições e horários',90,'a'],
+[3,'sat','ml','Tanatologia: estimativa do tempo de morte; cronotanatognose; entomologia forense; lesões intra vitam e post mortem; necropsia',60,'m'],
+[3,'sat','dt','Tributos da União: II, IE, IR, IPI, IOF; EC 132/2023 (Reforma Tributária): IBS, CBS, IS',90,'m'],
+[3,'sun','dpp','Revisão Sem.3: provas + busca e apreensão; Jurisprudência STJ — provas ilícitas e busca domiciliar',120,'a'],
+[4,'mon','pecas','Representação por prisão preventiva: requisitos, fundamentação, prazo e forma',90,'a'],
+[4,'mon','dp','Ilicitude; causas de exclusão: legítima defesa, estado de necessidade, estrito cumprimento do dever, exercício regular de direito',60,'a'],
+[4,'mon','dc','Organização político-administrativa; Estado federal; União, Estados, DF, Municípios e Territórios',90,'a'],
+[4,'tue','da','Poder de polícia: conceito, limites, autoexecutoriedade, coercibilidade; Liberdades públicas',90,'a'],
+[4,'tue','ml','Tanatologia: necropsia médico-legal — indicações, requisitos, técnicas, Protocolo de Minnesota',90,'m'],
+[4,'tue','dciv','Revisão Dir. Civil — temas de alta incidência CEBRASPE: posse, propriedade, negócio jurídico, prescrição',60,'m'],
+[4,'wed','dpp','Sujeitos do processo: juiz, MP, acusado, defensor, assistente, auxiliares; juizados especiais criminais; TCO',90,'a'],
+[4,'wed','dt','Tributos dos estados (ICMS, IPVA, ITCMD) e municípios (ISSQN, IPTU, ITBI); Tributos do DF',90,'m'],
+[4,'wed','damb','Lei 9.605/1998 — crimes de poluição, ordenamento urbano, patrimônio cultural; Dec. 6.514/2008',60,'b'],
+[4,'thu','dc','Poder Legislativo: atribuições, garantias, imunidades; Processo legislativo: espécies, procedimentos; CPI',90,'a'],
+[4,'thu','dp','Culpabilidade: elementos; Causas de exclusão; Imputabilidade; Erro de proibição; Coação irresistível; Obediência hierárquica',90,'a'],
+[4,'thu','gdf','Lei Orgânica do DF; Organização dos Poderes no DF: CLDF, Executivo DF, TJDFT, MPDFT, DPDF',60,'m'],
+[4,'fri','da','Serviços públicos: conceito, princípios, regulação; Concessão, permissão e autorização; Agências reguladoras',90,'a'],
+[4,'fri','dciv','Dir. das coisas: revisão posse e propriedade; usucapião; formas de aquisição da propriedade móvel',90,'m'],
+[4,'fri','demp','Sociedade limitada e S/A: características, administração, capital; Transformação, incorporação, fusão, cisão',60,'b'],
+[4,'sat','dpp','Prisão em flagrante: conceito, modalidades (próprio, impróprio, presumido, esperado, preparado), lavratura do auto',90,'a'],
+[4,'sat','ml','Sexologia forense: conceito, legislação, quesitos; perícia nos crimes sexuais; aborto; infanticídio; pedofilia',60,'m'],
+[4,'sat','dt','Ilícito tributário: adm. tributário, ilícito penal tributário; Crimes contra a ordem tributária (Lei 8.137/90)',90,'m'],
+[4,'sun','da','Revisão Sem.4: DA + Dir. Tributário; Jurisprudência STF/STJ — prisão em flagrante e poder de polícia',120,'a'],
+[5,'mon','pecas','Denúncia criminal: requisitos, aditamento; Queixa-crime: prazo decadencial, hipóteses',90,'a'],
+[5,'mon','dp','Concurso de agentes: autoria direta, mediata, coautoria, participação; Elementares e circunstâncias',60,'a'],
+[5,'mon','dc','Poder Executivo: forma e sistema de governo; Chefia de Estado e governo; Atribuições do Presidente da República',90,'a'],
+[5,'tue','da','Intervenção do Estado na propriedade: desapropriação, servidão, tombamento, limitação adm., requisição',90,'a'],
+[5,'tue','ml','Toxicologia forense: conceitos; embriaguez etílica e por drogas; dependência química; lesões por cáusticos e venenos',90,'m'],
+[5,'tue','dciv','Revisão integrada Dir. Civil: pontos mais cobrados pelo CEBRASPE em provas de delegado',60,'m'],
+[5,'wed','dpp','Prisão preventiva: requisitos, fundamentação, hipóteses (art. 312 CPP); Prisão temporária (Lei 7.960/89)',90,'a'],
+[5,'wed','dt','LC 105/2001 (sigilo bancário); LC 116/2003 (ISS); Revisão EC 132/2023',90,'m'],
+[5,'wed','damb','Revisão geral Dir. Ambiental: Lei 9.605 + Dec. 6.514 + princípios + CF/88 (art. 225)',60,'b'],
+[5,'thu','dc','Poder Judiciário: organização, competências, garantias; Funções essenciais à Justiça',90,'a'],
+[5,'thu','dp','Teoria geral da pena: penas privativas de liberdade; regimes de cumprimento; penas restritivas; pena de multa',90,'a'],
+[5,'thu','gdf','LC-DF 840/2011 (Regime jurídico servidores civis DF): Título V e VI; Direitos, deveres e responsabilidades',90,'m'],
+[5,'fri','da','Bens públicos: regime jurídico, classificação, aquisição e alienação; utilização pelos particulares; afetação',90,'a'],
+[5,'fri','dciv','Dir. Empresarial — revisão: estabelecimento empresarial; propriedade industrial; registro e nome empresarial',90,'m'],
+[5,'fri','demp','Recuperação judicial: requisitos, fases, plano; Recuperação extrajudicial; Institutos complementares; Lei 13.874/2019',60,'b'],
+[5,'sat','dpp','Medidas cautelares diversas da prisão (art. 319 CPP); Liberdade provisória: com e sem fiança; Fiança',90,'a'],
+[5,'sat','ml','Psicopatologia forense: conceitos; imputabilidade e responsabilidade penal; capacidade civil; dependências químicas',60,'m'],
+[5,'sat','dt','Revisão geral Dir. Tributário: crédito, lançamento, prescrição, decadência, repetição do indébito',90,'m'],
+[5,'sun','dpp','Revisão Sem.5: prisão + medidas cautelares; Jurisprudência STF/STJ — medidas cautelares e liberdade provisória',120,'a'],
+[6,'mon','pecas','Mandado de segurança em matéria criminal; HC revisão prática; Recurso em Sentido Estrito',90,'a'],
+[6,'mon','dp','Aplicação da pena: circunstâncias judiciais, agravantes, atenuantes, causas de aumento e diminuição; dosimetria',60,'a'],
+[6,'mon','dc','Segurança pública (art. 144 CF): atribuições; SUSP (Lei 13.675/18); Lei 12.830/13; Lei 14.735/23',90,'a'],
+[6,'tue','da','Licitações — Lei 14.133/2021: princípios, modalidades, fases interna e externa; contratos administrativos',90,'a'],
+[6,'tue','ml','Revisão integrada Medicina Legal: traumatologia, sexologia, tanatologia, toxicologia, psicopatologia',90,'m'],
+[6,'tue','dciv','Revisão Dir. Civil para prova: pontos críticos — LINDB, boa-fé, vícios do negócio, posse e propriedade',60,'m'],
+[6,'wed','dpp','Sentença criminal; Coisa julgada; Citação, intimação, interdição; Nulidades; Recursos em geral',90,'a'],
+[6,'wed','dt','Revisão geral Dir. Tributário: todos os tópicos; Questões CEBRASPE — foco em crédito tributário',90,'m'],
+[6,'wed','damb','Revisão geral Dir. Ambiental: crimes + infrações adm. + princípios + CF — questões CEBRASPE',60,'b'],
+[6,'thu','dc','Tratados e convenções: Mérida (UNCAC), Palermo, Viena; CADH (Pacto de São José); Tratado de Roma',90,'a'],
+[6,'thu','dp','Extinção de punibilidade: causas gerais e específicas; Prescrição: prazos, termos iniciais, causas suspensivas e interruptivas',90,'a'],
+[6,'thu','gdf','Lei 15.047/2024 (Regime disciplinar PCDF); Lei 4.878/1965 (PCDF); Lei 9.264/1996; Resolução 8/2025 (Regimento Interno PCDF)',90,'m'],
+[6,'fri','da','Contratos adm.; Controle e responsabilização; Lei Anticorrupção (12.846/13); Lei de Improbidade (8.429/92)',90,'a'],
+[6,'fri','dciv','Revisão Dir. Empresarial para prova: recuperação, falência, S/A, LTDA — questões CEBRASPE',90,'m'],
+[6,'fri','demp','Falência do empresário e sociedade empresária: fases, efeitos, crimes falimentares (Lei 11.101/2005)',60,'b'],
+[6,'sat','dpp','Leis especiais: Lei 9.296/96 (interceptação), 9.613/98, 12.037/09, 12.850/13, 13.964/19 (Anticrime), 13.431/17',90,'a'],
+[6,'sat','ml','Revisão final ML: questões CEBRASPE de alta incidência; interface perícia–criminalística',60,'m'],
+[6,'sat','dt','Revisão final Dir. Tributário + questões CEBRASPE',90,'m'],
+[6,'sun','dp','Revisão Sem.6: Dir. Penal crimes em espécie; Jurisprudência STF/STJ — penas, extinção de punibilidade',120,'a'],
+[7,'mon','dp','REVISÃO FINAL Dir. Penal — Parte Geral: princípios, fato típico, ilicitude, culpabilidade, pena, extinção',120,'a'],
+[7,'mon','dpp','REVISÃO FINAL Dir. Proc. Penal — Inquérito, ação penal, provas, prisão, leis especiais',120,'a'],
+[7,'tue','dc','REVISÃO FINAL Dir. Constitucional — Direitos fundamentais, organização do Estado, tratados',120,'a'],
+[7,'tue','da','REVISÃO FINAL Dir. Administrativo — Atos, poderes, licitações, controle, agentes, improbidade',120,'a'],
+[7,'wed','dciv','REVISÃO FINAL Dir. Civil — LINDB, bens, negócio jurídico, posse, propriedade, responsabilidade civil',90,'m'],
+[7,'wed','dt','REVISÃO FINAL Dir. Tributário — Obrigação, crédito, STN, limites ao poder de tributar',90,'m'],
+[7,'wed','demp','REVISÃO FINAL Dir. Empresarial — Sociedades, recuperação, falência',60,'b'],
+[7,'thu','ml','REVISÃO FINAL Medicina Legal — Traumatologia, tanatologia, sexologia, toxicologia, psicopatologia',90,'m'],
+[7,'thu','damb','REVISÃO FINAL Dir. Ambiental — Lei 9.605, Dec. 6.514, princípios, CF',60,'b'],
+[7,'thu','gdf','REVISÃO FINAL GDF — LC 840, Lei 15.047, Regimento PCDF, Conhecimentos DF, PDPM, Primeiros Socorros',90,'m'],
+[7,'fri','dp','SIMULADO GERAL — questões mistas certo/errado (foco Dir. Penal + Dir. Proc. Penal)',120,'a'],
+[7,'fri','dpp','SIMULADO GERAL — questões mistas certo/errado (foco Dir. Const. + Dir. Adm.)',120,'a'],
+[7,'sat','pecas','REVISÃO PEÇAS PROCESSUAIS — TCO, flagrante, prisão preventiva, HC, denúncia, representação',90,'a'],
+[7,'sat','dp','REVISÃO FINAL: pontos fracos identificados na semana + questões de maior incidência CEBRASPE',90,'a'],
+[7,'sat','dc','REVISÃO FINAL: temas da prova oral — Dir. Adm., Dir. Const., Dir. Penal, Dir. Proc. Penal',60,'a'],
+[7,'sun','dp','Véspera da prova — revisão leve, peças, jurisprudência recente dos tribunais superiores',60,'a'],
+];
+
+const MATERIAS = {
+  da:{name:'Dir. Administrativo e Legislação Complementar',inc:'ALTA',color:'#7b1fa2',topics:[
+    ['Conceito e fontes do Dir. Adm.; Regime jurídico adm.: princípios','a'],
+    ['Princípios da Adm. Pública: LIMPE e princípios implícitos','a'],
+    ['Adm. pública: organização, descentralização, desconcentração, órgãos públicos','a'],
+    ['Adm. indireta: autarquias, fundações, empresas públicas, SEM, entidades paralelas','a'],
+    ['Atos adm.: conceitos, requisitos, elementos, pressupostos e classificação','a'],
+    ['Fato e ato adm.; Atos adm. em espécie; Silêncio no Dir. Adm.','a'],
+    ['Cassação, Revogação e Anulação; Formação do ato adm.; Validade, eficácia e autoexecutoriedade','a'],
+    ['Atos simples, complexos, compostos; unilaterais, bilaterais, multilaterais; gerais e individuais','m'],
+    ['Atos vinculados e discricionários; Mérito do ato; Discricionariedade; Ato inexistente','m'],
+    ['Teoria das nulidades; Atos nulos e anuláveis; Vícios do ato adm.; Teoria dos motivos determinantes','a'],
+    ['Revogação, anulação e convalidação do ato adm.','a'],
+    ['Poderes da Adm.: hierárquico e manifestações; Poder disciplinar','a'],
+    ['Poder de polícia; Liberdades públicas e poder de polícia','a'],
+    ['Serviços públicos: regulação, concessão, permissão e autorização','a'],
+    ['Intervenção do Estado sobre propriedade privada e domínio econômico','a'],
+    ['Bens públicos: regime jurídico, aquisição, alienação, utilização pelos particulares','m'],
+    ['Licitações (Lei 14.133/2021): modalidades e procedimentos','a'],
+    ['Contratos administrativos; Convênios e consórcios administrativos','a'],
+    ['Controle e responsabilização da Adm.: adm., judicial e legislativo','a'],
+    ['Agentes públicos: espécies, cargo/emprego/função, provimento/vacância, responsabilidade','a'],
+    ['Sistemas administrativos: inglês, francês e o adotado no Brasil','b'],
+    ['Regime jurídico-adm.: supremacia do interesse público; indisponibilidade','a'],
+    ['Agências reguladoras; Processo adm. (Lei 9.784/99)','m'],
+    ['Poderes e deveres da Adm.: regulamentar, agir, eficiência, probidade, contas','m'],
+    ['Jurisprudência aplicada dos tribunais superiores','a'],
+    ['LEG: Lei 14.133/2021 (Estatuto de Licitações)','a'],
+    ['LEG: Lei 12.846/2013 (Anticorrupção)','a'],
+    ['LEG: Lei 15.047/2024 (Regime Disciplinar PCDF/PFDF)','a'],
+    ['LEG: LC-DF 840/2011 — Títulos V e VI (responsabilidade e processo disciplinar)','a'],
+    ['LEG: Lei 8.429/1992 (Improbidade administrativa)','a'],
+    ['LEG: Lei 9.784/1999 (Processo administrativo)','m'],
+  ]},
+  dc:{name:'Dir. Constitucional e Legislação Complementar',inc:'ALTA',color:'#1b5e20',topics:[
+    ['Noções gerais de DC; ciclos constitucionais; classificações das constituições','m'],
+    ['Poder constituinte: originário, derivado; Reforma e revisão; Emendas; Limitações','a'],
+    ['Controle de constitucionalidade: conceito, sistemas; inconstitucionalidade por ação e omissão','a'],
+    ['Sistema brasileiro de controle: difuso e concentrado; ADI, ADC, ADPF','a'],
+    ['Fenômeno jurídico da desconstitucionalização; Interpretação constitucional; Neoconstitucionalismo','m'],
+    ['Direitos e deveres individuais e coletivos (art. 5° CF)','a'],
+    ['Direito à vida, liberdade, igualdade, segurança e propriedade','a'],
+    ['Direitos sociais (arts. 6°–11); Garantias constitucionais individuais e coletivas','a'],
+    ['Remédios constitucionais: HC, MS, MI, HD, Ação Popular','a'],
+    ['Direitos sociais e sua efetivação; Tratados internacionais de DH e posição no ordenamento','a'],
+    ['Nacionalidade, cidadania, direitos políticos, partidos políticos','a'],
+    ['Organização político-administrativa; Estado federal; União, Estados, DF, Municípios, Territórios','a'],
+    ['Adm. pública: disposições gerais; Servidores públicos (arts. 37–41)','a'],
+    ['Organização dos poderes: freios e contrapesos; CPIs; organização e competências','a'],
+    ['Poder Legislativo: fundamentos, atribuições, garantias; Processo legislativo','a'],
+    ['Poder Executivo: forma e sistema de governo; atribuições do Presidente','a'],
+    ['Poder Judiciário: organização, competências; Funções essenciais à Justiça','a'],
+    ['Defesa do Estado; Segurança pública (art. 144); Organização das polícias','a'],
+    ['Ordem social (arts. 193–232); Ordem econômica e financeira','m'],
+    ['Tratados: Convenção de Mérida, Palermo, Viena; Pacto de São José da Costa Rica; Tratado de Roma','a'],
+    ['Noções sobre STN; Limitações ao poder de tributar; Finanças públicas','m'],
+    ['LEG: CF/88 (texto integral)','a'],
+    ['LEG: Lei 13.675/2018 — SUSP','a'],
+    ['LEG: Lei 12.830/2013 — Investigação criminal pelo delegado de polícia','a'],
+    ['LEG: Lei 14.735/2023 — Lei Orgânica Nacional das Polícias Civis','a'],
+    ['LEG: Lei 13.964/2019 — Pacote Anticrime (investigação e garantias)','a'],
+  ]},
+  dciv:{name:'Dir. Civil e Legislação Complementar',inc:'MÉDIA',color:'#0d47a1',topics:[
+    ['Lei de Introdução às Normas do Direito Brasileiro (LINDB — Dec.-Lei 4.657/42)','a'],
+    ['Pessoas: pessoa natural, personalidade e capacidade','m'],
+    ['Direitos da personalidade; Pessoa jurídica; Domicílio','m'],
+    ['Bens: diferentes classes; bens em si mesmos; bens reciprocamente considerados','m'],
+    ['Fato jurídico; Negócio jurídico: requisitos, classificação','m'],
+    ['Defeitos do negócio jurídico: erro, dolo, coação, estado de perigo, lesão, fraude','m'],
+    ['Invalidade do negócio jurídico: nulidade e anulabilidade','m'],
+    ['Atos jurídicos lícitos; Atos ilícitos; Abuso de direito','m'],
+    ['Prescrição e decadência: conceitos, prazos, causas suspensivas e interruptivas','a'],
+    ['Dir. das coisas: posse — conceito, classificação, aquisição, efeitos e perda','m'],
+    ['Dir. reais; Propriedade em geral; Aquisição da propriedade imóvel','m'],
+    ['Aquisição da propriedade móvel; Perda da propriedade','m'],
+    ['Responsabilidade civil: obrigação de indenizar; indenização; espécies','a'],
+    ['LEG: Decreto-lei 4.657/1942 (LINDB)','m'],
+    ['LEG: Decreto 9.830/2019','m'],
+  ]},
+  demp:{name:'Dir. Empresarial e Legislação Complementar',inc:'BAIXA',color:'#039be5',topics:[
+    ['Dir. Empresarial: origem, evolução, autonomia, fontes, características','b'],
+    ['Empresário: caracterização, inscrição, capacidade, teoria da empresa e perfis','b'],
+    ['Espécies de empresas: responsabilidade dos sócios, distribuição de lucros, sócio oculto','b'],
+    ['Teoria geral do dir. societário: conceito e personalização; sociedades não personificadas','b'],
+    ['Sociedades personificadas: simples, em nome coletivo, comandita simples, por ações, cooperativa','b'],
+    ['Liquidação, transformação, incorporação, fusão, cisão; Sociedade limitada e S/A','b'],
+    ['Estabelecimento empresarial; Recuperação judicial, extrajudicial e falência','b'],
+    ['Institutos complementares: registro, nome, prepostos, escrituração, propriedade industrial','b'],
+    ['LEG: Lei 11.101/2005 (Recuperação Judicial, Extrajudicial e Falência)','b'],
+    ['LEG: Lei 13.874/2019 (Direitos de Liberdade Econômica)','b'],
+  ]},
+  dp:{name:'Dir. Penal e Legislação Complementar',inc:'ALTA',color:'#c62828',topics:[
+    ['Princípios e garantias penais fundamentais; Dir. Penal e política criminal; Escolas penais','a'],
+    ['Lei penal: fontes, interpretação, vigência e aplicação; Analogia','a'],
+    ['Aplicação da lei penal no tempo: irretroatividade, novatio legis, abolitio criminis','a'],
+    ['Aplicação da lei penal no espaço: territorialidade, extraterritorialidade; Imunidades','a'],
+    ['Condições de punibilidade; Concurso aparente de normas','a'],
+    ['Teoria geral do crime: conceito, objeto, sujeitos, conduta, tipicidade, ilicitude e culpabilidade','a'],
+    ['Fato típico e elementos; Causas de exclusão da tipicidade; Teoria da ação','a'],
+    ['Conduta, resultado, relação de causalidade e teorias; Imputação objetiva','a'],
+    ['Consumação e tentativa; Desistência voluntária; Arrependimento eficaz e posterior; Crime impossível','a'],
+    ['Agravação pelo resultado; Descriminantes putativas; Erro de tipo; Erro sobre a pessoa','a'],
+    ['Ilicitude; Causas de exclusão da ilicitude','a'],
+    ['Culpabilidade e elementos; Causas de exclusão; Imputabilidade; Erro de proibição','a'],
+    ['Coação irresistível; Obediência hierárquica; Concurso de agentes: autoria e participação','a'],
+    ['Teoria geral da pena: espécies, regimes; penas restritivas; pena de multa','a'],
+    ['Aplicação da pena: circunstâncias judiciais, agravantes, atenuantes; dosimetria em 3 fases','a'],
+    ['Suspensão condicional da pena; Livramento condicional; Efeitos da condenação; Reabilitação','m'],
+    ['Medidas de segurança; Ação penal; Extinção de punibilidade','a'],
+    ['Prescrição: conceito, prazos, termos iniciais, causas suspensivas e interruptivas','a'],
+    ['Crimes contra a pessoa: homicídio, lesão corporal, periclitação (121–136 CP)','a'],
+    ['Crimes contra o patrimônio: furto, roubo, extorsão, estelionato, receptação (155–180 CP)','a'],
+    ['Crimes contra a propriedade imaterial; Crimes contra a org. do trabalho','b'],
+    ['Crimes contra a dignidade sexual; Crimes contra a família','a'],
+    ['Crimes contra a incolumidade pública; contra a paz pública; contra a fé pública','m'],
+    ['Crimes contra a Adm. Pública; Crimes contra o Estado democrático de direito','a'],
+    ['LEG: Lei Introdução CP; Art. 9° CPM; Contravenções penais','m'],
+    ['LEG: ECA (8.069/90); Crimes hediondos (8.072/90); Relações de consumo (8.078+8.137/90)','a'],
+    ['LEG: Crimes contra a ordem tributária (8.137/90, 8.176/91, 10.684/03)','m'],
+    ['LEG: Juizados Especiais Criminais (9.099/95); Interceptações Telefônicas (9.296/96)','a'],
+    ['LEG: Tortura (9.455/97); Crimes de trânsito (9.503/97); Crimes ambientais (9.605/98)','m'],
+    ['LEG: Lavagem de dinheiro (9.613/98); Proteção a vítimas (9.807/99); Pessoa idosa (10.741/03)','a'],
+    ['LEG: Estatuto do Desarmamento (10.826/03); Crimes falimentares (11.101/05)','a'],
+    ['LEG: Lei Maria da Penha (11.340/06); Lei de Drogas (11.343/06)','a'],
+    ['LEG: Organizações Criminosas (12.850/13); HIV/AIDS (12.984/14); Lei Deficiência (13.146/15)','a'],
+    ['LEG: Lei de Terrorismo (13.260/16); Abuso de Autoridade (13.869/19)','a'],
+    ['LEG: Lei Henry Borel (14.344/22); Lei Geral do Esporte (14.597/23)','m'],
+  ]},
+  dt:{name:'Dir. Tributário e Legislação Complementar',inc:'MÉDIA',color:'#e65100',topics:[
+    ['O Estado e o poder de tributar; Dir. Tributário: conceito e princípios','m'],
+    ['Tributo: conceito e espécies (impostos, taxas, contribuições)','m'],
+    ['CTN — Código Tributário Nacional; Normas gerais de Dir. Tributário','m'],
+    ['Obrigação tributária: conceito, espécies, fato gerador (hipótese de incidência)','m'],
+    ['Sujeitos ativo e passivo; Solidariedade; Capacidade tributária; Domicílio tributário','m'],
+    ['Crédito tributário: conceito, natureza; Lançamento: modalidades e revisão','a'],
+    ['Crédito tributário: suspensão, extinção e exclusão','a'],
+    ['Prescrição e decadência tributária; Repetição do indébito','a'],
+    ['Responsabilidade tributária: por dívida própria, solidariedade, sucessão, pessoal, terceiros','a'],
+    ['Sistema Tributário Nacional: princípios gerais; Limitações ao poder de tributar','a'],
+    ['Tributos da União, dos estados, do DF e dos municípios','m'],
+    ['Ilícito tributário: adm., penal tributário; Crimes contra a ordem tributária','a'],
+    ['LEG: EC 132/2023 (Reforma Tributária do Consumo — IBS, CBS, IS)','m'],
+    ['LEG: LC 105/2001 (sigilo das operações de instituições financeiras)','m'],
+    ['LEG: LC 116/2003 (ISS — Imposto Sobre Serviços)','b'],
+    ['LEG: Lei 8.137/1990 (crimes contra a ordem tributária)','a'],
+  ]},
+  ml:{name:'Medicina Legal',inc:'MÉDIA',color:'#c2185b',topics:[
+    ['Perícia Médico-Legal: importância, corpo de delito, cadeia de custódia, assistentes técnicos','a'],
+    ['Documentos médico-legais: atestados, prontuários, relatórios, pareceres','m'],
+    ['Laudos periciais: estrutura, quesitos oficiais, modelos (lesão, sexologia, necroscópico)','a'],
+    ['Crime de falsa perícia; Interface ML com ciências forenses e criminalística','m'],
+    ['Traumatologia Forense: lesão corporal — conceito, art. 129 CP, classificação, quesitos','a'],
+    ['Traumatologia: quantificação de dano, nexo causal, vítimas de tortura, Protocolo de Istambul','m'],
+    ['Síndrome da criança espancada; Energias mecânicas: ação contundente, TCE','a'],
+    ['Energias mecânicas: armas brancas; instrumentos perfurocontundentes; projéteis de alta energia','a'],
+    ['Energias físicas não mecânicas: baropatias; ação térmica; ação elétrica','m'],
+    ['Asfixiologia Forense: conceito, classificação; sufocação; constrição cervical; modificações no meio-ambiente','a'],
+    ['Tanatologia Forense: conceito de morte; transplantes; destinação do cadáver; inumação, exumação, cremação','m'],
+    ['Tanatologia: causas jurídicas da morte; morte súbita e suspeita; exame perinecroscópico','a'],
+    ['Tanatologia: estimativa do tempo de morte; cronotanatognose; entomologia forense','m'],
+    ['Lesões intra vitam e post mortem; Necropsia médico-legal: indicações, técnicas, Protocolo de Minnesota','a'],
+    ['Sexologia Forense: conceito, legislação, quesitos; perícia nos crimes sexuais','a'],
+    ['Estudo médico-legal do aborto; Estudo médico-legal do infanticídio; Perícia pedofilia','a'],
+    ['Toxicologia Forense: conceitos; embriaguez etílica e por drogas e legislação','a'],
+    ['Toxicologia: dependência do álcool e drogas; lesões por substâncias cáusticas e venenos','m'],
+    ['Psicopatologia Forense: imputabilidade e responsabilidade penal; capacidade civil','a'],
+    ['Psicopatologia: dependências químicas; quadros psiquiátricos relevantes ao Dir. Penal','m'],
+  ]},
+  dpp:{name:'Dir. Processual Penal e Legislação Complementar',inc:'ALTA',color:'#d4a017',topics:[
+    ['Princípios gerais, conceito, finalidade; Fontes; Sistemas de processo penal','a'],
+    ['Lei processual penal: fontes, eficácia, interpretação, analogia, imunidades','m'],
+    ['Inquérito policial: histórico, natureza, conceito, finalidade, características','a'],
+    ['IP: fundamento, titularidade, cognição, valor probatório, formas de instauração, notitia criminis','a'],
+    ['IP: procedimentos investigativos, indiciamento, garantias do investigado, conclusão e prazos','a'],
+    ['Ação penal: conceito, características, espécies e condições','a'],
+    ['Competência: critérios de determinação e modificação; Incompetência; Conexão e continência','a'],
+    ['Questões e processos incidentes','m'],
+    ['Provas: conceito, objeto, classificação e sistemas de avaliação','a'],
+    ['Princípios gerais da prova; procedimento probatório; valoração; ônus da prova; provas ilícitas','a'],
+    ['Meios de prova: perícias, interrogatório, confissão, testemunhas','a'],
+    ['Reconhecimento; acareação; documentos; indícios','m'],
+    ['Busca e apreensão: pessoal, domiciliar, requisitos, restrições e horários','a'],
+    ['Sujeitos do processo: juiz, MP, acusado, defensor, assistente, auxiliares, impedimentos','m'],
+    ['Juizados Especiais Criminais; TCO; Atos processuais: forma, lugar e tempo','a'],
+    ['Prisão: conceito, espécies, mandado de prisão e cumprimento','a'],
+    ['Prisão em flagrante: modalidades, lavratura do auto, comunicação e relaxamento','a'],
+    ['Prisão temporária (Lei 7.960/89); Prisão preventiva: requisitos e fundamentação','a'],
+    ['Princípio da necessidade; prisão especial; liberdade provisória; fiança','a'],
+    ['Medidas cautelares diversas da prisão (art. 319 CPP)','a'],
+    ['Sentença criminal; Coisa julgada; HC; MS em matéria criminal','a'],
+    ['Citação, intimação, interdição de direito; Ação civil ex delicto','m'],
+    ['Nulidades; Recursos em geral; Processo penal constitucional','a'],
+    ['Jurisdição e competência; Processo, procedimento e relação jurídica processual','m'],
+    ['Pretensão punitiva; Formas do procedimento; Princípios informadores do processo','m'],
+    ['Entendimento dos tribunais superiores','a'],
+    ['LEG: Lei 7.960/1989 — Prisão Temporária','a'],
+    ['LEG: Lei 8.072/1990 — Crimes Hediondos (aspectos processuais)','a'],
+    ['LEG: Lei 9.099/1995 — Juizados Especiais Criminais','a'],
+    ['LEG: Lei 9.296/1996 — Interceptação Telefônica, Telemática e Ambiental','a'],
+    ['LEG: Lei 9.613/1998 — Lavagem de Dinheiro (aspectos processuais)','a'],
+    ['LEG: Lei 9.807/1999 — Proteção a vítimas e testemunhas ameaçadas','m'],
+    ['LEG: Lei 11.340/2006 — Maria da Penha (aspectos processuais)','a'],
+    ['LEG: Lei 11.343/2006 — Lei de Drogas (aspectos processuais)','a'],
+    ['LEG: Lei 12.037/2009 — Identificação Criminal','m'],
+    ['LEG: Lei 12.850/2013 — Organização Criminosa (aspectos processuais)','a'],
+    ['LEG: Lei 13.431/2017 — Sistema de Garantia de Direitos da Criança e Adolescente Vítima','m'],
+    ['LEG: Lei 13.869/2019 — Abuso de Autoridade (aspectos processuais)','a'],
+    ['LEG: Lei 13.964/2019 — Pacote Anticrime (aspectos processuais)','a'],
+    ['LEG: Lei 14.344/2022 — Lei Henry Borel (aspectos processuais)','m'],
+  ]},
+  damb:{name:'Dir. Ambiental e Legislação Complementar',inc:'BAIXA',color:'#558b2f',topics:[
+    ['Princípios do Dir. Ambiental','m'],
+    ['Meio ambiente na Constituição Federal (art. 225)','m'],
+    ['Repartição de competências em matéria ambiental; Normas de cooperação','b'],
+    ['Poder de polícia e Dir. Ambiental; Licenciamento ambiental','m'],
+    ['Estudo de impacto ambiental (EIA/RIMA); Compensação ambiental; Biossegurança','m'],
+    ['Infrações ambientais; Responsabilidade ambiental: conceito de dano e reparação','m'],
+    ['SISNAMA; SNUC (Sistema Nacional de Unidades de Conservação)','b'],
+    ['LEG: CF/88 — art. 225','m'],
+    ['LEG: Lei 9.605/1998 — crimes e infrações adm. contra o meio ambiente','m'],
+    ['LEG: Decreto 6.514/2008 — procedimento adm. para infrações ambientais','b'],
+  ]},
+  gdf:{name:'GDF — Legislação e Conhecimentos do DF',inc:'MÉDIA',color:'#0277bd',topics:[
+    ['Realidade étnica, social, histórica, geográfica, cultural, política e econômica do DF','m'],
+    ['Região Integrada de Desenvolvimento do DF e Entorno (RIDE): LC 94/1998; Dec. 7.469/2011','m'],
+    ['Plano Distrital de Política para Mulheres (PDPM): diretrizes, eixos e ações','m'],
+    ['Noções de primeiros socorros: engasgo, sangramentos, fraturas, queimaduras, desmaio, convulsões, intoxicações','m'],
+    ['Acionamento do socorro especializado; cuidados iniciais com a vítima','m'],
+    ['Lei Orgânica do Distrito Federal (LODF): estrutura e princípios','m'],
+    ['Organização dos Poderes no DF: CLDF, Executivo DF, TJDFT, MPDFT, DPDF','m'],
+    ['LC-DF 840/2011 — Regime jurídico servidores civis DF: Título V e VI','a'],
+    ['Lei 15.047/2024 — Regime Disciplinar da PCDF/PFDF: deveres, proibições, penalidades','a'],
+    ['Lei 9.264/1996 — Estatuto dos Delegados de Polícia do DF: direitos e deveres','a'],
+    ['Lei 4.878/1965 — Direitos, deveres e prerrogativas da PCDF','a'],
+    ['Resolução 8/2025 — Regimento Interno da PCDF: estrutura, atribuições do delegado','a'],
+    ['Lei 4.949/2012 (DF) — normas gerais concurso público DF e suas alterações','m'],
+    ['Lei 14.735/2023 — Lei Orgânica Nacional das Polícias Civis','a'],
+  ]},
+  pecas:{name:'Peças Processuais (Segundas-feiras)',inc:'ALTA',color:'#880e4f',topics:[
+    ['Termo Circunstanciado de Ocorrência (TCO): estrutura, requisitos e fundamentação legal','a'],
+    ['Auto de Prisão em Flagrante: lavratura, comunicação ao juiz, relaxamento e liberdade','a'],
+    ['Representação para prisão preventiva: requisitos, fundamentação e forma','a'],
+    ['Representação para busca e apreensão domiciliar: requisitos e forma','a'],
+    ['Habeas Corpus: petição inicial, pedido liminar, fundamentação jurídica','a'],
+    ['Mandado de segurança em matéria penal: pressupostos e estrutura','a'],
+    ['Denúncia criminal: requisitos do art. 41 CPP; aditamento; crime de ação pública','a'],
+    ['Queixa-crime: prazo decadencial, hipóteses de ação privada e ação pública subsidiária','a'],
+    ['Recurso em Sentido Estrito: hipóteses do art. 581 CPP; forma e prazo','m'],
+    ['Relatório de inquérito policial; Portaria de instauração de IP','a'],
+  ]},
+};
+
+// CICLOS — cores atualizadas para refletir as novas cores das matérias
+const CICLOS = [
+  {day:'Segunda',emoji:'📋',color:'#880e4f',items:[
+    {t:'1h30',s:'Peças Processuais',note:'TCO, flagrante, preventiva, HC, denúncia'},
+    {t:'01h00',s:'Dir. Penal',note:'Parte geral ou crimes em espécie'},
+    {t:'1h30',s:'Dir. Constitucional',note:'Poder constituinte, direitos fundamentais, organização Estado'},
+  ]},
+  {day:'Terça',emoji:'⚖️',color:'#7b1fa2',items:[
+    {t:'1h30',s:'Dir. Administrativo',note:'Atos adm., poderes, licitações, agentes públicos'},
+    {t:'1h30',s:'Medicina Legal',note:'Traumatologia, tanatologia, sexologia, toxicologia'},
+    {t:'01h00',s:'Dir. Civil',note:'LINDB, bens, negócio jurídico, prescrição, responsabilidade civil'},
+  ]},
+  {day:'Quarta',emoji:'🔒',color:'#d4a017',items:[
+    {t:'1h30',s:'Dir. Proc. Penal',note:'IP, ação penal, competência, provas, prisão'},
+    {t:'1h30',s:'Dir. Tributário',note:'Crédito tributário, STN, responsabilidade tributária'},
+    {t:'01h00',s:'Dir. Ambiental',note:'Princípios, Lei 9.605/98, Dec. 6.514/08'},
+  ]},
+  {day:'Quinta',emoji:'🏛️',color:'#1b5e20',items:[
+    {t:'1h30',s:'Dir. Constitucional',note:'Poderes do Estado, segurança pública, tratados internacionais'},
+    {t:'01h00',s:'Dir. Penal',note:'Teoria da pena, extinção de punibilidade, prescrição'},
+    {t:'1h30',s:'GDF / Legislação DF',note:'LC 840/11, Lei 15.047/24, Regimento PCDF, Conhecimentos DF'},
+  ]},
+  {day:'Sexta',emoji:'📚',color:'#0d47a1',items:[
+    {t:'1h30',s:'Dir. Administrativo',note:'Licitações, contratos, controle, responsabilização'},
+    {t:'1h30',s:'Dir. Civil',note:'Dir. das coisas, posse, propriedade, responsabilidade civil'},
+    {t:'01h00',s:'Dir. Empresarial',note:'Sociedades, recuperação, falência, Lei 11.101/05'},
+  ]},
+  {day:'Sábado',emoji:'📖',color:'#e65100',items:[
+    {t:'1h30',s:'Dir. Proc. Penal',note:'Medidas cautelares, leis especiais processuais'},
+    {t:'01h00',s:'Medicina Legal',note:'Psicopatologia forense, toxicologia, revisão'},
+    {t:'1h30',s:'Dir. Tributário',note:'Tributos federais, estaduais, municipais; EC 132/23'},
+  ]},
+  {day:'Domingo',emoji:'🔄',color:'#2e7d32',items:[
+    {t:'02h00',s:'Revisão Geral',note:'Revisão da semana + pontos fracos identificados'},
+    {t:'02h00',s:'Jurisprudência',note:'STF/STJ: teses relevantes ao cargo de delegado'},
+  ]},
+];
+
+// ===== STATE =====
+let state = {
+  topics: [], timeEntries: [], materiaProgress: {},
+  currentWeek:0, view:'days', editingId:null, deletingId:null, modalMode:'add',
+};
+
+// ===== STORAGE =====
+async function saveState() {
+  const data = JSON.stringify({topics:state.topics, timeEntries:state.timeEntries, materiaProgress:state.materiaProgress});
+  try { await window.storage.set('pcdf_state', data); } catch(e) {}
+  try { localStorage.setItem('pcdf_state', data); } catch(e) {}
+  showSave();
+}
+async function loadState() {
+  let data=null;
+  try { const r=await window.storage.get('pcdf_state'); if(r) data=r.value; } catch(e) {}
+  if(!data) { try { data=localStorage.getItem('pcdf_state'); } catch(e) {} }
+  if(data) {
+    try { const p=JSON.parse(data); state.topics=p.topics||[]; state.timeEntries=p.timeEntries||[]; state.materiaProgress=p.materiaProgress||{}; }
+    catch(e) { state.topics=[]; }
+  }
+  if(!state.topics.length) initTopics();
+}
+function initTopics() {
+  let id=1;
+  state.topics=INIT_TOPICS.map(t=>({id:'T'+String(id++).padStart(4,'0'),wk:t[0],day:t[1],sub:t[2],title:t[3],dur:t[4],inc:t[5],status:'todo',method:'',note:''}));
+}
+
+// ===== COUNTDOWN =====
+function updateCountdown() {
+  const diff=EXAM_DATE-new Date();
+  if(diff<=0){['d','h','m','s'].forEach(u=>document.getElementById('cd-'+u).textContent='00');return;}
+  const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+  document.getElementById('cd-d').textContent=d;
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+}
+
+// ===== TABS =====
+function showTab(t) {
+  document.querySelectorAll('.tabp').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.querySelectorAll('.ntab').forEach(el=>{
+    const txt=el.textContent.trim().toLowerCase();
+    if((t==='plan'&&txt.startsWith('plan'))||(t==='ciclos'&&txt.startsWith('ciclo'))||(t==='materias'&&txt.startsWith('mat'))||(t==='controle'&&txt.startsWith('controle'))||(t==='stats'&&txt.startsWith('estat'))||(t==='tempo'&&txt.startsWith('tempo')))
+      el.classList.add('active');
+  });
+  if(t==='plan') renderPlan();
+  if(t==='stats') renderStats();
+  if(t==='materias') renderMaterias();
+  if(t==='ciclos') renderCiclos();
+  if(t==='tempo') renderTempo();
+  if(t==='controle') renderControle();
+}
+
+// ===== RENDER PLAN =====
+function renderPlan() { renderWeekTabs(); if(state.view==='days') renderDaysView(); else renderKanbanView(); }
+function renderWeekTabs() {
+  document.getElementById('weekTabs').innerHTML=WEEKS.map(w=>`
+    <button class="wtab${state.currentWeek===w.id?' active':''}${w.rev?' revwk':''}" onclick="selectWeek(${w.id})">
+      ${w.label}${w.rev?' 🔁':''}
+      <span style="display:block;font-size:10px;opacity:.7">${w.sub}</span>
+    </button>`).join('');
+}
+function selectWeek(wk){state.currentWeek=wk;renderPlan();}
+function setView(v){state.view=v;document.getElementById('vbtn-days').classList.toggle('active',v==='days');document.getElementById('vbtn-kanban').classList.toggle('active',v==='kanban');if(v==='days')renderDaysView();else renderKanbanView();}
+function getTopicsByDay(day){return state.topics.filter(t=>t.wk===state.currentWeek&&t.day===day);}
+
+function renderDaysView() {
+  const dates=state.currentWeek===0?W0_DATES:WEEK_DATES[state.currentWeek];
+  const days=state.currentWeek===0?['tue','wed','thu','fri','sat','sun']:DAYS_ORDER;
+  const c=document.getElementById('planContent');
+  c.innerHTML=`<div class="dscroll"><div class="dgrid" id="daysGrid"></div></div>`;
+  const grid=document.getElementById('daysGrid');
+  days.forEach(day=>{
+    const topics=getTopicsByDay(day);
+    const dateStr=dates?(dates[day]||''):'';
+    const d=document.createElement('div');
+    d.className='dcol';d.id='day-'+day;d.dataset.day=day;
+    d.ondragover=e=>{e.preventDefault();d.classList.add('drag-over');};
+    d.ondragleave=()=>d.classList.remove('drag-over');
+    d.ondrop=e=>dropCard(e,day);
+    d.innerHTML=`
+      <div class="dhead">${DAYS_PT[day]}<span class="ddate">${dateStr}</span>
+        ${day==='mon'?'<span class="dspecial">Peças</span>':''}
+        ${day==='sun'?'<span class="drev">Rev+Jurisp</span>':''}
+      </div>
+      <div class="dcards" id="cards-${day}">
+        ${topics.length?topics.map(t=>cardHTML(t)).join(''):'<div class="empty">Sem tópicos</div>'}
+      </div>`;
+    grid.appendChild(d);
+  });
+}
+
+function renderKanbanView() {
+  const wkTopics=state.topics.filter(t=>t.wk===state.currentWeek);
+  const cols=[{id:'todo',label:'A Fazer',color:'#9aa0b0'},{id:'doing',label:'Andamento',color:'#f59e0b'},{id:'review',label:'Revisar',color:'#3b82f6'},{id:'done',label:'Finalizado',color:'#10b981'}];
+  const c=document.getElementById('planContent');
+  c.innerHTML=`<div class="dscroll"><div class="kgrid" id="kanbanGrid"></div></div>`;
+  const grid=document.getElementById('kanbanGrid');
+  cols.forEach(col=>{
+    const colTopics=wkTopics.filter(t=>t.status===col.id);
+    const div=document.createElement('div');
+    div.className='kcol';div.id='k-'+col.id;div.dataset.status=col.id;
+    div.ondragover=e=>{e.preventDefault();div.classList.add('drag-over');};
+    div.ondragleave=()=>div.classList.remove('drag-over');
+    div.ondrop=e=>dropKanban(e,col.id);
+    div.innerHTML=`
+      <div class="khead" style="color:${col.color}">${col.label}
+        <span class="kcount" style="color:${col.color}">${colTopics.length}</span>
+      </div>
+      <div class="kcards" id="kcards-${col.id}">
+        ${colTopics.length?colTopics.map(t=>cardHTML(t)).join(''):'<div class="empty">Sem tópicos</div>'}
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+
+function cardHTML(t) {
+  const sub=SUBS[t.sub]||{n:'?',c:'#999',l:'#eee'};
+  const incBg={a:'#ffebee',m:'#fffbeb',b:'#f1f2f6'}[t.inc]||'#f1f2f6';
+  const incFg={a:'#c62828',m:'#d97706',b:'#6b7280'}[t.inc]||'#999';
+  const incLbl={a:'Alta',m:'Média',b:'Baixa'}[t.inc]||'?';
+  const durStr=t.dur>=120?(t.dur/60)+'h':t.dur===90?'1h30min':(t.dur/60)+'h';
+  const statusOpts=['todo:A Fazer','doing:Andamento','review:Revisar','done:Finalizado']
+    .map(o=>{const[v,l]=o.split(':');return`<option value="${v}"${t.status===v?' selected':''}>${l}</option>`;}).join('');
+  const methodOpts=['Questões','Material','Lei Seca','Jurisprudência','Flashcard']
+    .map(m=>`<option value="${m}"${t.method===m?' selected':''}>${m}</option>`).join('');
+  const doneBg = t.status === 'done' ? 'background:#f0fdf4;' : '';
+  return `<div class="tcard" id="card-${t.id}" draggable="true" style="border-left-color:${sub.c};${doneBg}"
+    ondragstart="dragStart(event,'${t.id}')" ondragend="dragEnd(event)">
+    <div class="ctags">
+      <span class="tag" style="background:${sub.l};color:${sub.c}">${sub.n}</span>
+      <span class="tag" style="background:${incBg};color:${incFg}">${incLbl}</span>
+    </div>
+    <div class="ctitle">${t.title}</div>
+    <div class="cdur">⏱ ${durStr}</div>
+    <div class="cfoot">
+      <select class="cselect" onchange="changeStatus('${t.id}',this.value)">${statusOpts}</select>
+      <select class="cselect" onchange="changeMethod('${t.id}',this.value)">
+        <option value="">Método...</option>${methodOpts}
+      </select>
+      <div class="cactions">
+        <button class="bti" onclick="editCard('${t.id}')" title="Editar">✏️</button>
+        <button class="bti del" onclick="deleteCard('${t.id}')" title="Excluir">🗑</button>
+      </div>
+    </div>
+    ${t.note?`<div style="font-size:11px;color:var(--tx2);margin-top:6px;border-top:1px solid var(--br);padding-top:5px">${t.note}</div>`:''}
+  </div>`;
+}
+
+// ===== DRAG & DROP =====
+let dragId=null;
+function dragStart(e,id){dragId=id;setTimeout(()=>document.getElementById('card-'+id)?.classList.add('dragging'),0);e.dataTransfer.effectAllowed='move';}
+function dragEnd(){if(dragId)document.getElementById('card-'+dragId)?.classList.remove('dragging');}
+function dropCard(e,day){e.preventDefault();e.currentTarget.classList.remove('drag-over');if(!dragId)return;const t=state.topics.find(t=>t.id===dragId);if(t){t.day=day;t.wk=state.currentWeek;}dragId=null;saveState();renderPlan();}
+function dropKanban(e,status){e.preventDefault();e.currentTarget.classList.remove('drag-over');if(!dragId)return;const t=state.topics.find(t=>t.id===dragId);if(t)t.status=status;dragId=null;saveState();renderPlan();renderStats();}
+
+// ===== CARD ACTIONS =====
+function changeStatus(id,val){const t=state.topics.find(t=>t.id===id);if(t){t.status=val;saveState();renderStats();}}
+function changeMethod(id,val){const t=state.topics.find(t=>t.id===id);if(t){t.method=val;saveState();}}
+
+// ===== MODAL =====
+function openAddModal(){
+  state.modalMode='add';state.editingId=null;
+  document.getElementById('modalTitle').textContent='Adicionar Tópico';
+  document.getElementById('mSaveBtn').textContent='Salvar';
+  populateModalSelects();
+  ['mTitle','mNote'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mSub').value='dp';
+  document.getElementById('mWeek').value=state.currentWeek;
+  document.getElementById('mDay').value='mon';
+  document.getElementById('mDur').value='90';
+  document.getElementById('mInc').value='a';
+  document.getElementById('addModal').classList.add('open');
+}
+function editCard(id){
+  const t=state.topics.find(t=>t.id===id);if(!t)return;
+  state.modalMode='edit';state.editingId=id;
+  document.getElementById('modalTitle').textContent='Editar Tópico';
+  document.getElementById('mSaveBtn').textContent='Atualizar';
+  populateModalSelects();
+  document.getElementById('mTitle').value=t.title;
+  document.getElementById('mNote').value=t.note||'';
+  document.getElementById('mSub').value=t.sub;
+  document.getElementById('mWeek').value=t.wk;
+  document.getElementById('mDay').value=t.day;
+  document.getElementById('mDur').value=t.dur;
+  document.getElementById('mInc').value=t.inc;
+  document.getElementById('addModal').classList.add('open');
+}
+function populateModalSelects(){
+  document.getElementById('mSub').innerHTML=Object.entries(SUBS).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('');
+  document.getElementById('mWeek').innerHTML=WEEKS.map(w=>`<option value="${w.id}">${w.label} (${w.sub})</option>`).join('');
+}
+function saveModal(){
+  const title=document.getElementById('mTitle').value.trim();
+  if(!title){alert('Preencha o título do tópico.');return;}
+  if(state.modalMode==='add'){
+    state.topics.push({id:'T'+Date.now(),wk:+document.getElementById('mWeek').value,day:document.getElementById('mDay').value,sub:document.getElementById('mSub').value,title,dur:+document.getElementById('mDur').value,inc:document.getElementById('mInc').value,status:'todo',method:'',note:document.getElementById('mNote').value.trim()});
+  } else {
+    const t=state.topics.find(t=>t.id===state.editingId);
+    if(t){t.wk=+document.getElementById('mWeek').value;t.day=document.getElementById('mDay').value;t.sub=document.getElementById('mSub').value;t.title=document.getElementById('mTitle').value.trim();t.dur=+document.getElementById('mDur').value;t.inc=document.getElementById('mInc').value;t.note=document.getElementById('mNote').value.trim();}
+  }
+  closeModal('addModal');saveState();renderPlan();renderStats();
+}
+function deleteCard(id){state.deletingId=id;document.getElementById('confirmDel').classList.add('open');}
+function confirmDelete(){state.topics=state.topics.filter(t=>t.id!==state.deletingId);state.deletingId=null;closeModal('confirmDel');saveState();renderPlan();renderStats();}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ===== STATS =====
+function renderStats(){
+  const total=state.topics.length,done=state.topics.filter(t=>t.status==='done').length,doing=state.topics.filter(t=>t.status==='doing').length,pct=total?Math.round(done/total*100):0;
+  document.getElementById('statCards').innerHTML=`
+    <div class="scard"><div class="sval" style="color:#1565c0">${total}</div><div class="slbl">Total de Tópicos</div></div>
+    <div class="scard"><div class="sval" style="color:#10b981">${done}</div><div class="slbl">Finalizados</div><div class="pbar"><div class="pfill" style="width:${pct}%"></div></div></div>
+    <div class="scard"><div class="sval" style="color:#f59e0b">${doing}</div><div class="slbl">Em Andamento</div></div>
+    <div class="scard"><div class="sval" style="color:#c62828">${pct}%</div><div class="slbl">Progresso Geral</div><div class="pbar"><div class="pfill" style="width:${pct}%"></div></div></div>`;
+  let html='';
+  Object.entries(SUBS).forEach(([k,sub])=>{
+    const st=state.topics.filter(t=>t.sub===k);if(!st.length)return;
+    const sd=st.filter(t=>t.status==='done').length,sp=Math.round(sd/st.length*100);
+    html+=`<div class="subrow"><div class="subname" style="color:${sub.c}">${sub.n}</div><div class="pbar"><div class="pfill" style="width:${sp}%;background:${sub.c}"></div></div><div class="subpct" style="color:${sub.c}">${sp}%</div></div>`;
+  });
+  document.getElementById('subjectProgress').innerHTML=html;
+}
+
+// ===== MATÉRIAS =====
+function renderMaterias(){
+  document.getElementById('subjectList').innerHTML=Object.entries(MATERIAS).map(([k,m])=>{
+    const sub=SUBS[k]||{c:'#999',l:'#eee'};
+    const ibg={ALTA:'#ffebee',MÉDIA:'#fffbeb',BAIXA:'#f1f2f6'}[m.inc]||'#eee';
+    const ifc={ALTA:'#c62828',MÉDIA:'#d97706',BAIXA:'#6b7280'}[m.inc]||'#999';
+    return `<div class="subsec">
+      <div class="subhdr" onclick="toggleSub('sb-${k}')">
+        <span class="tag" style="background:${sub.l};color:${sub.c}">${sub.n}</span>
+        <span style="font-size:13px;font-weight:700;color:${sub.c}">${m.name}</span>
+        <span class="tag" style="background:${ibg};color:${ifc};margin-left:auto">${m.inc}</span>
+        <span style="font-size:12px;color:var(--tx3);margin-left:8px">${m.topics.length} tópicos</span>
+        <span class="subhdr-arrow">▼</span>
+      </div>
+      <div class="subbody" id="sb-${k}">
+        <div class="topiclist">${m.topics.map(([label,inc],i)=>`
+          <div class="titem">
+            <span class="tnum">${String(i+1).padStart(2,'0')}</span>
+            <span>${label}</span>
+            <span class="iinc inc-${inc}">${{a:'Alta',m:'Média',b:'Baixa'}[inc]}</span>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleSub(id){const el=document.getElementById(id);el?.classList.toggle('open');el?.previousElementSibling?.querySelector('.subhdr-arrow')?.classList.toggle('open');}
+
+// ===== CICLOS =====
+function renderCiclos(){
+  document.getElementById('cicloGrid').innerHTML=CICLOS.map(c=>`
+    <div class="ciclocard">
+      <div class="ciclohead" style="background:${c.color}18;border-left:3px solid ${c.color}">
+        <span style="font-size:16px">${c.emoji}</span>
+        <span class="cicloname" style="color:${c.color}">${c.day}</span>
+        <span style="font-size:12px;color:var(--tx3);margin-left:auto">4h/dia</span>
+      </div>
+      <div class="ciclobody">${c.items.map(item=>`
+        <div class="cicloitem">
+          <span class="ciclot">${item.t}</span>
+          <div>
+            <span style="font-weight:600;color:var(--tx);font-size:13px">${item.s}</span>
+            <span style="display:block;font-size:11px;color:var(--tx3)">${item.note}</span>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ===== CONTROLE DE MATÉRIAS =====
+function mkKey(sub,idx){ return `${sub}_${idx}`; }
+
+function ctrlProgress() {
+  let total=0,done=0;
+  Object.entries(MATERIAS).forEach(([k,m])=>{total+=m.topics.length;m.topics.forEach((_,i)=>{if(state.materiaProgress[mkKey(k,i)])done++;});});
+  return {total,done,pct:total?Math.round(done/total*100):0};
+}
+
+function renderControle() {
+  // Preserva quais seções estão expandidas antes de re-renderizar
+  const openIds = new Set();
+  document.querySelectorAll('[id^="ctrl-body-"]').forEach(el=>{
+    if(el.classList.contains('open')) openIds.add(el.id);
+  });
+
+  const {total,done,pct} = ctrlProgress();
+  document.getElementById('ctrlGlobal').innerHTML = `
+    <div class="ctrl-global">
+      <div>
+        <div class="ctrl-global-num">${done}<span style="font-size:18px;font-weight:500;color:rgba(255,255,255,.5)">/${total}</span></div>
+        <div class="ctrl-global-lbl">tópicos estudados</div>
+      </div>
+      <div class="ctrl-global-bar">
+        <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:6px">Progresso geral do conteúdo programático</div>
+        <div class="ctrl-global-bar-track"><div class="ctrl-global-bar-fill" style="width:${pct}%"></div></div>
+        <div class="ctrl-global-pct">${pct}% concluído</div>
+      </div>
+    </div>`;
+
+  const c = document.getElementById('ctrlContent');
+  c.innerHTML = '';
+  Object.entries(MATERIAS).forEach(([k,m]) => {
+    const sub = SUBS[k]||{c:'#999',l:'#eee',n:'?'};
+    const sDone = m.topics.filter((_,i)=>state.materiaProgress[mkKey(k,i)]).length;
+    const sPct = Math.round(sDone/m.topics.length*100);
+    const incBg={ALTA:'#ffebee',MÉDIA:'#fffbeb',BAIXA:'#f1f2f6'}[m.inc]||'#eee';
+    const incFg={ALTA:'#c62828',MÉDIA:'#d97706',BAIXA:'#6b7280'}[m.inc]||'#999';
+    const bodyId = `ctrl-body-${k}`;
+    const block = document.createElement('div');
+    block.className = 'ctrl-subblock';
+    block.innerHTML = `
+      <div class="ctrl-subhdr" onclick="toggleCtrlBody('${bodyId}')">
+        <div style="width:4px;height:36px;border-radius:2px;background:${sub.c};flex-shrink:0"></div>
+        <span class="tag" style="background:${sub.l};color:${sub.c};flex-shrink:0">${sub.n}</span>
+        <span class="ctrl-subname">${m.name}</span>
+        <span class="tag" style="background:${incBg};color:${incFg};flex-shrink:0">${m.inc}</span>
+        <span class="ctrl-subhdr-arrow">▶</span>
+        <div class="ctrl-subprog">
+          <div class="ctrl-subpbar"><div class="ctrl-subpfill" id="fill-${k}" style="width:${sPct}%;background:${sub.c}"></div></div>
+          <span class="ctrl-subnum" id="num-${k}" style="color:${sDone===m.topics.length?'#10b981':sub.c}">${sDone}/${m.topics.length}</span>
+        </div>
+      </div>
+      <div class="ctrl-subbody" id="${bodyId}">
+        <div class="ctrl-subactions">
+          <button class="btn btns btnxs" onclick="markAllCtrl('${k}',true)">✓ Marcar todos</button>
+          <button class="btn btns btnxs" onclick="markAllCtrl('${k}',false)">✕ Desmarcar todos</button>
+        </div>
+        ${m.topics.map(([label,inc],i)=>{
+          const key=mkKey(k,i);
+          const isDone=!!state.materiaProgress[key];
+          const ib={a:'#ffebee',m:'#fffbeb',b:'#f1f2f6'}[inc]||'#eee';
+          const ifc2={a:'#c62828',m:'#d97706',b:'#6b7280'}[inc]||'#999';
+          return `<div class="ctrl-row${isDone?' ctrl-done':''}" id="cr-${key}" onclick="toggleCtrl('${key}','${k}',event)">
+            <div class="ctrl-chk${isDone?' on':''}" id="chk-${key}">${isDone?'✓':''}</div>
+            <span class="ctrl-rownum">${String(i+1).padStart(2,'0')}</span>
+            <span class="ctrl-rowtxt${isDone?' done-line':''}" id="txt-${key}">${label}</span>
+            <span class="ctrl-rowinc iinc inc-${inc}" style="background:${ib};color:${ifc2}">${{a:'Alta',m:'Média',b:'Baixa'}[inc]}</span>
+          </div>`;
+        }).join('')}
+      </div>`;
+    c.appendChild(block);
+  });
+
+  // Restaura as seções que estavam expandidas
+  openIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){
+      el.classList.add('open');
+      const arrow=el.previousElementSibling?.querySelector('.ctrl-subhdr-arrow');
+      if(arrow) arrow.style.transform='rotate(90deg)';
+    }
+  });
+}
+
+function toggleCtrlBody(id) {
+  // Apenas abre/fecha a seção — não interfere nos tópicos
+  const el=document.getElementById(id);
+  if(!el) return;
+  const isOpen=el.classList.contains('open');
+  el.classList.toggle('open');
+  const arrow=el.previousElementSibling?.querySelector('.ctrl-subhdr-arrow');
+  if(arrow) arrow.style.transform=isOpen?'':'rotate(90deg)';
+}
+
+// toggleCtrl: atualização cirúrgica do DOM — não re-renderiza a aba inteira,
+// portanto a seção expandida permanece aberta após marcar/desmarcar um tópico
+function toggleCtrl(key, subKey, event) {
+  if(event) event.stopPropagation(); // evita propagar para ctrl-subhdr
+  state.materiaProgress[key] = !state.materiaProgress[key];
+  const isDone = !!state.materiaProgress[key];
+
+  // Atualiza a linha do tópico
+  const row=document.getElementById('cr-'+key);
+  const chk=document.getElementById('chk-'+key);
+  const txt=document.getElementById('txt-'+key);
+  if(row) row.className=`ctrl-row${isDone?' ctrl-done':''}`;
+  if(chk){ chk.className=`ctrl-chk${isDone?' on':''}`;chk.textContent=isDone?'✓':''; }
+  if(txt) txt.className=`ctrl-rowtxt${isDone?' done-line':''}`;
+
+  // Atualiza barra de progresso da disciplina
+  const m=MATERIAS[subKey];
+  const sub=SUBS[subKey]||{c:'#999'};
+  if(m){
+    const sDone=m.topics.filter((_,i)=>!!state.materiaProgress[mkKey(subKey,i)]).length;
+    const sPct=Math.round(sDone/m.topics.length*100);
+    const fill=document.getElementById('fill-'+subKey);
+    const num=document.getElementById('num-'+subKey);
+    if(fill) fill.style.width=`${sPct}%`;
+    if(num){ num.textContent=`${sDone}/${m.topics.length}`;num.style.color=sDone===m.topics.length?'#10b981':sub.c; }
+  }
+
+  // Atualiza progresso global
+  const {total,done,pct}=ctrlProgress();
+  const gNum=document.querySelector('.ctrl-global-num');
+  const gFill=document.querySelector('.ctrl-global-bar-fill');
+  const gPct=document.querySelector('.ctrl-global-pct');
+  if(gNum) gNum.innerHTML=`${done}<span style="font-size:18px;font-weight:500;color:rgba(255,255,255,.5)">/${total}</span>`;
+  if(gFill) gFill.style.width=`${pct}%`;
+  if(gPct) gPct.textContent=`${pct}% concluído`;
+
+  saveState();
+}
+
+function markAllCtrl(subKey, val) {
+  const m=MATERIAS[subKey];if(!m)return;
+  m.topics.forEach((_,i)=>{state.materiaProgress[mkKey(subKey,i)]=val;});
+  saveState();renderControle();
+}
+function expandAllCtrl(){document.querySelectorAll('[id^="ctrl-body-"]').forEach(el=>{el.classList.add('open');const a=el.previousElementSibling?.querySelector('.ctrl-subhdr-arrow');if(a)a.style.transform='rotate(90deg)';});}
+function collapseAllCtrl(){document.querySelectorAll('[id^="ctrl-body-"]').forEach(el=>{el.classList.remove('open');const a=el.previousElementSibling?.querySelector('.ctrl-subhdr-arrow');if(a)a.style.transform='';});}
+function resetCtrl(){document.getElementById('confirmReset').classList.add('open');}
+function doResetCtrl(){state.materiaProgress={};closeModal('confirmReset');saveState();renderControle();}
+
+// ===== TEMPO DE ESTUDOS =====
+function renderTempo(){
+  const dateEl=document.getElementById('tempoDate');
+  if(!dateEl.value) dateEl.value=new Date().toISOString().split('T')[0];
+  const date=dateEl.value;
+  const entries=state.timeEntries.filter(e=>e.date===date);
+  document.getElementById('tempoGrid').innerHTML=entries.length?entries.map((e,i)=>{
+    const sub=SUBS[e.sub]||{n:'?',c:'#999',l:'#eee'};
+    const acc=e.total>0?Math.round((e.total-e.errors)/e.total*100):-1;
+    const accCls=acc<0?'acc-na':acc<70?'acc-r':acc<=80?'acc-y':'acc-g';
+    const subOpts=Object.entries(SUBS).map(([k,v])=>`<option value="${k}"${e.sub===k?' selected':''}>${v.n}</option>`).join('');
+    return `<div class="tcard2">
+      <div class="thead2">
+        <select class="cselect" style="font-size:12px;max-width:180px" onchange="updateEntry(${i},'sub',this.value)">${subOpts}</select>
+        <span style="font-size:12px;color:var(--tx2)">${e.date}</span>
+        <button class="bti del" style="margin-left:auto" onclick="removeEntry(${i})">✕</button>
+      </div>
+      <div class="tinputs">
+        <div class="tig"><label>Horas estudadas</label><input class="finput" type="text" placeholder="00:00h" value="${e.hours}" oninput="updateEntry(${i},'hours',this.value)"></div>
+        <div class="tig"><label>Questões respondidas</label><input class="finput" type="number" min="0" value="${e.total}" oninput="updateEntry(${i},'total',+this.value)"></div>
+        <div class="tig"><label>Número de erros</label><input class="finput" type="number" min="0" value="${e.errors}" oninput="updateEntry(${i},'errors',+this.value)"></div>
+        <div class="tig"><label>% de acertos</label><span class="tval ${accCls}">${acc>=0?acc+'%':'—'}</span></div>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty" style="background:var(--sf);border-radius:var(--r);padding:28px">Nenhum registro para este dia. Clique em "+ Registrar" para adicionar.</div>';
+  const allDates=[...new Set(state.timeEntries.map(e=>e.date))].sort().reverse();
+  document.getElementById('tempoHistory').innerHTML=allDates.length>1?`<div class="stitle mb8" style="font-size:15px">Histórico Recente</div>`+allDates.slice(0,14).map(d=>{
+    const de=state.timeEntries.filter(e=>e.date===d);
+    const tq=de.reduce((a,e)=>a+e.total,0),te=de.reduce((a,e)=>a+e.errors,0);
+    const acc=tq>0?Math.round((tq-te)/tq*100):-1;
+    const cls=acc<0?'acc-na':acc<70?'acc-r':acc<=80?'acc-y':'acc-g';
+    return `<div style="display:flex;align-items:center;gap:10px;padding:7px 12px;background:var(--sf);border-radius:var(--rs);margin-bottom:5px;font-size:13px">
+      <span style="font-weight:600;color:var(--tx2)">${d}</span>
+      <span>${de.map(e=>SUBS[e.sub]?.n||'?').join(' · ')}</span>
+      <span style="margin-left:auto;color:var(--tx2)">${tq} questões</span>
+      <span class="tval ${cls}" style="font-size:12px">${acc>=0?acc+'%':'—'}</span>
+    </div>`;
+  }).join(''):'';
+}
+function addTempoEntry(){
+  const date=document.getElementById('tempoDate').value;if(!date)return;
+  const pending=state.topics.filter(t=>t.wk===state.currentWeek&&t.status!=='done');
+  state.timeEntries.push({date,sub:pending.length?pending[0].sub:'dp',hours:'00:00h',total:0,errors:0});
+  saveState();renderTempo();
+}
+function removeEntry(idx){const date=document.getElementById('tempoDate').value;const de=state.timeEntries.filter(e=>e.date===date);const entry=de[idx];state.timeEntries=state.timeEntries.filter(e=>e!==entry);saveState();renderTempo();}
+function updateEntry(idx,field,val){const date=document.getElementById('tempoDate').value;const de=state.timeEntries.filter(e=>e.date===date);if(de[idx]){de[idx][field]=val;saveState();renderTempo();}}
+function clearTempo(){const date=document.getElementById('tempoDate').value;state.timeEntries=state.timeEntries.filter(e=>e.date!==date);saveState();renderTempo();}
+
+// ===== SAVE INDICATOR =====
+let saveTimer;
+function showSave(){const el=document.getElementById('saveInd');el.classList.add('show');clearTimeout(saveTimer);saveTimer=setTimeout(()=>el.classList.remove('show'),2000);}
+document.addEventListener('change',()=>{clearTimeout(window._autoSave);window._autoSave=setTimeout(saveState,1500);});
+document.querySelectorAll('.overlay,.cdialog').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open');}));
+
+// ===== INIT =====
+async function init(){await loadState();updateCountdown();setInterval(updateCountdown,1000);renderPlan();renderStats();renderMaterias();renderCiclos();}
+init();
+</script>
+</body>
+</html>
